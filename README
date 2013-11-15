@@ -1,0 +1,69 @@
+Capture, View, Oscilloscope, Plethysmograph
+===========================================
+
+Capture is a graphical application that is able to manage streams of data.
+A stream of data is an abstract concept that involves a data source, one
+or more operations, and a data sink. The application can manage list of
+this items, and ensures that the components are arranged in the correct
+order. Depending on the compilation options you will have, different
+kinds of sources, operations and sinks. When the stream has a source
+and a sink, you can start it, allowing the data to flow from the source
+to the sink, and you can stop it when you don't need to process more data.
+Using the correct components, you can send the data to other processes 
+in the same machine or in a remote computer, create a binary acquisition file,
+or destroy the input data. Data sources are available from dealing with
+different data acquisition cards using the free COMEDI data acquisition
+subsystem. Alternatively you can use NIDAQmx or NIDAQmxBase software to
+interact with the DAQ hardware using the official drivers.
+
+View is a graphical application that is designed to view the binary acquisition
+files created with the file sink. The application accepts a parameter, the
+number of seconds per page, is able to show all the signals contained in a
+binary acquisition file, using pages of n seconds length. You can move in the
+acquisition file using the toolbar and the menu and zoom in the plot. 
+Finally you can export the contents of the file to a plain text file too.
+
+Oscilloscope is a virtual instrument that is able to receive the data from the
+Capture program, when you are using the Plug operation, and display it to the
+user in a graphical plot, with a legend, that shows the number of the channels,
+the kind of unit, and the color of the signal. You can configure the listen
+address and port too.
+
+Plethysmograph is a virtual instrument that is able to receive the data from the
+Capture program, when you are using the Plug operation, and compute the number
+of BPM of each signal, displaying each value in a Display. Each display contains
+a label that can store the name of the patient or any other info that can help
+you. Like with the Oscilloscope you can configure the listen address and port.
+
+BUILD
+=====
+Read the 'INSTALL' file for more detailed directions.
+
+These programs use the standard ./configure ; make.
+Remember, run ./configure --help
+to see what build options are available.
+
+In order to compile Freeacq you need to have: 
+GTK+ >= 2.18
+GLIB >= 2.22
+CAIRO >= 1.8.8
+GtkDatabox >= 0.9.1.1
+
+And you may need to have installed depending on the configure options:
+COMEDILIB >= 0.8
+NIDAQmx >= 9.6.0 (Microsoft Windows) 
+NIDAQmx >= 8.0.2 (GNU/Linux) or NIDAQmxBase >= 3.6.0
+
+
+The configure script will fail if you don't.  
+
+If you don't have GTK+ 2.0 installed or any other dependence
+you should install it using your distribution's package 
+management tools.
+
+RUN
+===
+
+You should run 'make install' as root to make sure all the components are
+installed in the proper location. Once you've done that, you only need to
+run facqcapture, facqoscilloscope, facqplethysmograph, or facqviewer.

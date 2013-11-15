@@ -1,0 +1,440 @@
+# Spanish translations for freeacq package.
+# This file is put in the public domain.
+#  <victor.quicksilver@gmail.com>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: freeacq 0.1\n"
+"Report-Msgid-Bugs-To: \"freeacq@gmail.com\"\n"
+"POT-Creation-Date: 2013-09-20 05:59+0200\n"
+"PO-Revision-Date: 2013-06-05 20:40+0200\n"
+"Last-Translator:  <victor.quicksilver@gmail.com>\n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8-bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/facqbafview.c:138
+msgid "Binary Acquisition File Viewer"
+msgstr "Visor de archivos de Adquisición Binarios"
+
+#: src/facqbafview.c:160
+msgid "Color legend"
+msgstr "Leyenda"
+
+#: src/facqbafview.c:357
+msgid "Binary Adquisition File"
+msgstr "Archivo de Adquisición Binario"
+
+#: src/facqbafview.c:365
+#, c-format
+msgid "Opening %s"
+msgstr "Cargando %s"
+
+#: src/facqbafview.c:371
+#, c-format
+msgid "Error verifying file: %s"
+msgstr "Error verificando archivo: %s"
+
+#: src/facqbafview.c:377
+msgid "The file isn't valid"
+msgstr "El archivo no es valido"
+
+#: src/facqbafview.c:386
+#, c-format
+msgid "Error opening file: %s"
+msgstr "Error cargando archivo: %s"
+
+#: src/facqbafview.c:394
+#, c-format
+msgid "Error reading header: %s"
+msgstr "Error cargando el encabezado: %s"
+
+#: src/facqbafview.c:397 src/facqbafview.c:408
+msgid "Error reading file"
+msgstr "Error cargando archivo"
+
+#: src/facqbafview.c:406
+#, c-format
+msgid "Error reading tail: %s"
+msgstr "Error cargando el pie: %s"
+
+#: src/facqbafview.c:486
+msgid "Plain Text File"
+msgstr "Archivo de texto plano"
+
+#: src/facqbafview.c:502
+#, c-format
+msgid "Error exporting file: %s"
+msgstr "Error exportando archivo: %s"
+
+#: src/facqbafview.c:505
+msgid "Error exporting file"
+msgstr "Error exportando archivo"
+
+#: src/facqbafview.c:510
+#, c-format
+msgid "Successful export to %s"
+msgstr "Archivo exportado correctamente en %s"
+
+#: src/facqbafview.c:559
+msgid "File closed"
+msgstr "Archivo cerrado"
+
+#: src/facqbafviewdialog.c:116
+msgid "Page preferences"
+msgstr "Preferencias de página"
+
+#: src/facqbafviewdialog.c:126
+msgid "Time per page:"
+msgstr "Tiempo por página"
+
+#: src/facqbafviewdialog.c:140
+msgid " seconds"
+msgstr " segundos"
+
+#: src/facqbafviewmenu.c:126
+msgid "Viewer"
+msgstr "Visor"
+
+#: src/facqbafviewmenu.c:142
+msgid "Export"
+msgstr "Exportar"
+
+#: src/facqbafviewmenu.c:157
+msgid "File"
+msgstr "Archivo"
+
+#: src/facqbafviewmenu.c:204
+msgid "Page"
+msgstr "Página"
+
+#: src/facqbafviewmenu.c:230 src/facqoscopemenu.c:187
+msgid "Zoom"
+msgstr "Zoom"
+
+#: src/facqbafviewmenu.c:244 src/facqcapturemenu.c:243
+#: src/facqoscopemenu.c:201
+msgid "Help"
+msgstr "Ayuda"
+
+#: src/facqbafviewmenucallbacks.c:217
+msgid "Freeacq BAF Viewer"
+msgstr "Visor de archivos BAF de Freeacq"
+
+#: src/facqbafviewmenucallbacks.c:219
+msgid "A Binary Acquisition File (.baf) viewer"
+msgstr "Un visor de archivos de adquisición binaria (.baf)"
+
+#: src/facqbafviewtoolbar.c:153
+msgid " of 1 pages"
+msgstr " de 1 páginas"
+
+#: src/facqbafviewtoolbar.c:312
+#, c-format
+msgid " of %.0f pages"
+msgstr " de %.0f páginas"
+
+#: src/facqcapture.c:153
+#, c-format
+msgid "Error: %s"
+msgstr "Error: %s"
+
+#: src/facqcapture.c:187 src/facqcapture.c:386 src/facqcapture.c:469
+#: src/facqcapture.c:597 src/facqcapturemenu.c:121
+msgid "Capture"
+msgstr "Captura"
+
+#: src/facqcapture.c:340
+msgid "Settings applied"
+msgstr "Preferencias aplicadas"
+
+#: src/facqcapture.c:374
+msgid "Stream exists, close the stream first"
+msgstr "Existe una adquisición, cierrela primero"
+
+#: src/facqcapture.c:398
+msgid "New stream created"
+msgstr "Adquisición creada"
+
+#: src/facqcapture.c:466
+msgid "Stream loaded"
+msgstr "Adquisición cargada"
+
+#: src/facqcapture.c:559
+msgid "Stream saved"
+msgstr "Adquisición guardada"
+
+#: src/facqcapture.c:599
+msgid "Stream closed"
+msgstr "Adquisición preparada"
+
+#: src/facqcapture.c:755
+msgid "Source added to stream"
+msgstr "Fuente añadida"
+
+#: src/facqcapture.c:762
+msgid "Operation added to stream"
+msgstr "Operación añadida"
+
+#: src/facqcapture.c:769
+msgid "Sink added, stream ready"
+msgstr "Sumidero añadido, adquisición preparada"
+
+#: src/facqcapture.c:828
+msgid "Sink removed"
+msgstr "Sumidero eliminado"
+
+#: src/facqcapture.c:838
+msgid "Operation removed"
+msgstr "Operación eliminada"
+
+#: src/facqcapture.c:845
+msgid "Source removed"
+msgstr "Fuente eliminada"
+
+#: src/facqcapture.c:897
+msgid "Stream cleared"
+msgstr "Adquisición reiniciada"
+
+#: src/facqcapture.c:966
+msgid "Stream started"
+msgstr "Adquisición iniciada"
+
+#: src/facqcapture.c:997
+msgid "Stopping, this can take a while..."
+msgstr "Deteniendo, esto puede llevar algún tiempo..."
+
+#: src/facqcapture.c:1002
+msgid "Stream stopped"
+msgstr "Adquisición detenida"
+
+#: src/facqcapture.c:1033
+msgid "Error opening log"
+msgstr "Error cargando registro"
+
+#: src/facqcapturemenu.c:166
+msgid "Stream"
+msgstr "Adquisición"
+
+#: src/facqcapturemenu.c:214
+msgid "Control"
+msgstr "Control"
+
+#: src/facqcapturemenu.c:223
+msgid "Read"
+msgstr "Leer"
+
+#: src/facqcapturemenu.c:229
+msgid "Log"
+msgstr "Registro"
+
+#: src/facqcapturemenucallbacks.c:217
+msgid "Freeacq Capture"
+msgstr "Captura de Freeacq"
+
+#: src/facqcapturemenucallbacks.c:219
+msgid "A Stream manager and data capturer"
+msgstr "Un editor de adquisiciones y capturador"
+
+#: src/facqcatalog.c:554
+msgid "Item not supported"
+msgstr "Elemento no soportado"
+
+#: src/facqcatalogdialog.c:167 src/facqcatalogdialog.c:316
+msgid "Operations"
+msgstr "Operaciones"
+
+#: src/facqcatalogdialog.c:171 src/facqcatalogdialog.c:317
+msgid "Sinks"
+msgstr "Sumideros"
+
+#: src/facqcatalogdialog.c:285
+msgid "Choose a component"
+msgstr "Elija un componente"
+
+#: src/facqcatalogdialog.c:302
+msgid "Items"
+msgstr "Elementos"
+
+#: src/facqcatalogdialog.c:331
+msgid "Selected Item"
+msgstr "Elemento seleccionado"
+
+#: src/facqchanlisteditor.c:128 src/facqchanlisteditor.c:140
+#: src/facqchanlisteditor.c:160 src/facqchanlisteditor.c:187
+#: src/facqchanlisteditor.c:412
+msgid "Ground/RSE"
+msgstr "Tierra/RSE"
+
+#: src/facqchanlisteditor.c:129 src/facqchanlisteditor.c:142
+#: src/facqchanlisteditor.c:163
+msgid "Common/NRSE"
+msgstr "Común/NRSE"
+
+#: src/facqchanlisteditor.c:130 src/facqchanlisteditor.c:144
+#: src/facqchanlisteditor.c:166
+msgid "Differential"
+msgstr "Diferencial"
+
+#: src/facqchanlisteditor.c:131 src/facqchanlisteditor.c:146
+#: src/facqchanlisteditor.c:169
+msgid "Other/Default"
+msgstr "Otra/Por defecto"
+
+#: src/facqchanlisteditor.c:319
+msgid "Number of channels"
+msgstr "Número de canales"
+
+#: src/facqchanlisteditor.c:332 src/facqchanlisteditor.c:405
+msgid "Analog reference"
+msgstr "Referencia"
+
+#: src/facqchanlisteditor.c:379 src/facqchanlisteditor.c:426
+#: src/facqlegend.c:110
+msgid "Channel"
+msgstr "Canal"
+
+#: src/facqchanlisteditor.c:392
+msgid "Range"
+msgstr "Rango"
+
+#: src/facqlegend.c:106
+msgid "Color"
+msgstr "Color"
+
+#: src/facqlegend.c:114
+msgid "Unit"
+msgstr "Unidad"
+
+#: src/facqoscope.c:154
+#, c-format
+msgid "New client connected from %s"
+msgstr "Nueva conexión desde %s"
+
+#: src/facqoscope.c:175
+msgid "Client disconnected"
+msgstr "Cliente desconectado"
+
+#: src/facqoscope.c:287 src/facqoscopemenu.c:135
+msgid "Oscilloscope"
+msgstr "Osciloscopio"
+
+#: src/facqoscope.c:340 src/facqoscope.c:516
+#, c-format
+msgid "Listening on %s:%u"
+msgstr "Escuchando en %s:%u"
+
+#: src/facqoscope.c:344
+#, c-format
+msgid "Listening on all:%u"
+msgstr "Escuchando en todas:%u"
+
+#: src/facqoscope.c:509
+#, c-format
+msgid "Error %s"
+msgstr "Error %s"
+
+#: src/facqoscopemenu.c:158
+msgid "Plug"
+msgstr "Enchufe"
+
+#: src/facqoscopemenucallbacks.c:131
+msgid "Freeacq Oscilloscope"
+msgstr "Osciloscopio de Freeacq"
+
+#: src/facqoscopemenucallbacks.c:133
+msgid "A simple oscilloscope tool"
+msgstr "Un osciloscopio sencillo"
+
+#: src/facqresources.c:82
+msgid "Software only data source"
+msgstr "Fuente de datos por software"
+
+#: src/facqresources.c:109
+msgid "Requires comedi and an async subdevice"
+msgstr "Requiere comedi y un subdispositivo asíncrono"
+
+#: src/facqresources.c:135
+msgid "Requires comedi and a sync subdevice"
+msgstr "Requiere comedi y un subdispositivo síncrono"
+
+#: src/facqresources.c:163
+msgid "Reads data using NIDAQ"
+msgstr "Lee datos usando NIDAQ"
+
+#: src/facqresources.c:192
+msgid "Plug for virtual instruments"
+msgstr "Enchufe para instrumentos virtuales"
+
+#: src/facqresources.c:220
+msgid "Nullifies input data"
+msgstr "Destruye los datos de entrada"
+
+#: src/facqresources.c:246
+msgid "Writes data to a binary acquisition file"
+msgstr "Escribe datos a un archivo de adquisición binario"
+
+#: src/facqresources.c:273
+msgid "Writes data using NIDAQ"
+msgstr "Escribe datos usando NIDAQ"
+
+#: src/facqstreamdialog.c:118
+msgid "Stream name"
+msgstr "Nombre de la adquisición"
+
+#: src/facqstreamdialog.c:128
+msgid "Name:"
+msgstr "Nombre:"
+
+#: src/facqstreamdialog.c:136
+msgid "Untitled stream"
+msgstr "Adquisición sin nombre"
+
+#: src/facqstreamview.c:166
+msgid "Type"
+msgstr "Tipo"
+
+#: src/facqstreamview.c:170
+msgid "Name"
+msgstr "Nombre"
+
+#: src/facqstreamview.c:174
+msgid "Details"
+msgstr "Detalles"
+
+#: src/facqstreamview.c:184
+msgid "Stream details:"
+msgstr "Detalles:"
+
+#: src/facqstreamview.c:187 src/facqstreamview.c:300
+msgid "Create a new stream, or open an existing stream from a file."
+msgstr "Cree una Adquisición, o lea una existente desde un archivo"
+
+#: src/facqstreamview.c:306 src/facqstreamview.c:312
+msgid "You must add a source, optionally some operations, and a sink."
+msgstr "Debe añadir una fuente, opcionalmente operaciones, y un sumidero"
+
+#: src/facqstreamview.c:318
+msgid "Stream is ready to be started, press play to start the acquisition."
+msgstr "Adquisición preparada, presione reproducir para comenzar"
+
+#: src/facqstreamview.c:324
+msgid "Data acquisition is in progress, press stop when desired"
+msgstr "Adquisición en progreso, presione detener cuando lo desee"
+
+#: src/facqstreamview.c:330
+msgid "Stream stopped, press play to start again"
+msgstr "Adquisición detenida, presione reproducir para reiniciarla"
+
+#: src/facqstreamview.c:336
+msgid "Some error happened while running the stream"
+msgstr "Ocurrió algún error mientras se ejecutaba la adquisición"
+
+#~ msgid "Can't allocate the memory area"
+#~ msgstr "No se puede reservar memoria"
+
+#~ msgid "End of acquisition"
+#~ msgstr "Fin de la adquisición"

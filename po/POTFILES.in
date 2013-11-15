@@ -1,0 +1,22 @@
+# List of source files which contain translatable strings.
+# Note that intltool-update -m can be used to obtain this list.
+src/facqbafview.c
+src/facqbafviewdialog.c
+src/facqbafviewmenu.c
+src/facqbafviewmenucallbacks.c
+src/facqbafviewtoolbar.c
+src/facqcapture.c
+src/facqcapturemenu.c
+src/facqcapturemenucallbacks.c
+src/facqcatalog.c
+src/facqcatalogdialog.c
+src/facqchanlisteditor.c
+src/facqlegend.c
+src/facqoscope.c
+src/facqoscopemenu.c
+src/facqoscopemenucallbacks.c
+src/facqresources.c
+src/facqstreamdialog.c
+src/facqstreamview.c
+src/facqunits.c
+src/facqcapturemain.c
