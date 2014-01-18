@@ -70,7 +70,9 @@ int main(int argc,char **argv)
 	FacqChanlist *chanlist = NULL;
 	FacqOperation *plug = NULL;        
 
+#if GLIB_MINOR_VERSION < 36
         g_type_init();
+#endif
 #if GLIB_MINOR_VERSION < 32
 	g_thread_init(NULL);
 #endif
