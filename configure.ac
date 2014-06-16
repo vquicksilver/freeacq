@@ -101,6 +101,7 @@ dnl #
 dnl # In the negative case, it sets USE_NLS to ‘no’; it sets LIBINTL and 
 dnl # LTLIBINTL to empty and doesn't change CPPFLAGS.
 dnl #####################################################################
+AM_GNU_GETTEXT_VERSION(0.19)
 AM_GNU_GETTEXT([external])
 
 dnl ##################################################################
