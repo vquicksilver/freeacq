@@ -59,23 +59,28 @@ EXTRA_HFILES=
 # e.g. IGNORE_HFILES=gtkdebug.h gtkintl.h private_code
 IGNORE_HFILES=facqi18n.h facqglibcompat.h
 
-if ENABLE_GTK
+if ENABLE_GTKDATABOX
 else
 IGNORE_HFILES += \
 	facqbafviewdialog.h facqbafview.h \
 	facqbafviewmenu.h facqbafviewplot.h \
 	facqbafviewtoolbar.h facqbafviewmenucallbacks.h \
 	facqbafviewtoolbarcallbacks.h \
-	facqcapture.h facqcapturemenu.h \
-	facqcapturetoolbar.h facqcatalogdialog.h \
-	facqchanlisteditor.h facqdyndialog.h \
-	facqfilechooser.h facqlegend.h \
-	facqlogwindow.h facqcapturemenucallbacks.h \
-	facqcapturetoolbarcallbacks.h \
 	facqoscope.h facqoscopemenu.h \
 	facqoscopeplot.h facqoscopetoolbar.h \
 	facqoscopemenucallbacks.h \
-	facqoscopetoolbarcallbacks.h \
+	facqoscopetoolbarcallbacks.h facqlegend.h
+endif
+
+if ENABLE_GTK
+else
+IGNORE_HFILES += \
+	facqcapture.h facqcapturemenu.h \
+	facqcapturetoolbar.h facqcatalogdialog.h \
+	facqchanlisteditor.h facqdyndialog.h \
+	facqfilechooser.h \
+	facqlogwindow.h facqcapturemenucallbacks.h \
+	facqcapturetoolbarcallbacks.h \
 	facqplugdialog.h facqplug.h \
 	facqstatusbar.h facqstreamdialog.h \
 	facqstreamview.h facqresourcesicons.h \
@@ -148,10 +153,14 @@ GTKDOC_LIBS= \
 
 if ENABLE_GTK
 GTKDOC_LIBS += \
-	$(top_srcdir)/src/libfacqoscope.a \
-	$(top_srcdir)/src/libfacqbafview.a \
 	$(top_srcdir)/src/libfacqcapture.a \
 	$(top_srcdir)/src/libfacqplethysmograph.a
+endif
+
+if ENABLE_GTKDATABOX
+GTKDOC_LIBS += \
+	$(top_srcdir)/src/libfacqoscope.a \
+	$(top_srcdir)/src/libfacqbafview.a
 endif
 
 # This includes the standard gtk-doc make rules, copied by gtkdocize.

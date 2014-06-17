@@ -4,10 +4,20 @@ else
 NLS_FLAGS = 
 endif
 
-if ENABLE_GTK
-noinst_LIBRARIES = libfreeacq.a libfacqcapture.a libfacqoscope.a libfacqbafview.a libfacqplethysmograph.a
-else
 noinst_LIBRARIES = libfreeacq.a
+
+bin_PROGRAMS = facqstreamtest
+
+if ENABLE_GTK
+bin_PROGRAMS += facqcapture facqplethysmograph
+noinst_LIBRARIES += libfacqcapture.a libfacqplethysmograph.a
+noinst_bindir = $(top_builddir)/tests
+noinst_bin_PROGRAMS = facqstreamtest
+endif
+
+if ENABLE_GTKDATABOX
+bin_PROGRAMS += facqoscilloscope facqviewer
+noinst_LIBRARIES += libfacqoscope.a libfacqbafview.a
 endif
 
 if TARGET_WIN32
@@ -376,10 +386,6 @@ libfacqplethysmograph_a_CPPFLAGS = \
 	$(GLIB_CFLAGS) \
 	$(NLS_FLAGS)
 
-noinst_bindir = $(top_builddir)/tests
-noinst_bin_PROGRAMS = facqstreamtest
-
-bin_PROGRAMS = facqoscilloscope facqviewer facqcapture facqplethysmograph
 facqoscilloscope_SOURCES = \
 	facqoscopemain.c \
 	$(EXTRA_facqoscilloscope_SOURCES)
@@ -456,7 +462,7 @@ facqplethysmograph_LDADD = \
 	$(GTK_LIBS) \
 	-lm
 else
-bin_PROGRAMS = facqstreamtest
+
 endif
 
 facqstreamtest_SOURCES = facqstreamtest.c

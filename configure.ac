@@ -143,10 +143,11 @@ AC_CHECK_TOOL(
 	[windres],
 	[no]
 )
-if test "${WINDRES}" = "no"; then
-AC_MSG_ERROR([windres not found])
+	if test "${WINDRES}" = "no"; then
+		AC_MSG_ERROR([windres not found])
+	fi
 fi
-fi
+
 # check for gtk-doc
 m4_ifdef([GTK_DOC_CHECK], [
 GTK_DOC_CHECK([1.14], [--flavour no-tmpl])
@@ -175,58 +176,54 @@ AC_SUBST(GLIB_CFLAGS)
 AC_SUBST(GLIB_LIBS)
 
 dnl #######################################################################
-dnl # GTK Check, plus gtkdatabox					  #
+dnl # GTK Check, includes gtkdatabox check				  #
 dnl #######################################################################
-dnl # Future gtk+-3 check
-dnl #if test "x$gtk" = "xyes" ; then
-dnl #PKG_CHECK_MODULES(
-dnl #	[GTK],
-dnl #	[gtk+-3.0],
-dnl #	[
-dnl #		gtk3="yes"
-dnl #		CFLAGS="${CFLAGS} -DGTK_DISABLE_SINGLE_INCLUDES"
-dnl #		CFLAGS="${CFLAGS} -DGTK_DISABLE_DEPRECATED"
-dnl #		CFLAGS="${CFLAGS} -DGSEAL_ENABLE"
-dnl #	],
-dnl #	[gtk3="no"]
-dnl #)
-dnl #if test "x$gtk3" = "xno" ; then
-PKG_CHECK_MODULES(
-	[GTK],
-	[gtk+-2.0 >= 2.18], 
-	[gtk2="yes"],	
-	[	
-			gtk2="no"
-			AC_MSG_RESULT(no)
-			AC_MSG_ERROR([
-You must have GTK+ 2.18.0 and gtkdatabox-0.9.1.1 or 
-newer development headers installed to build.
+if test "x$gtk" = "xyes" ; then
+	PKG_CHECK_MODULES(
+		[GTK],
+		[gtk+-3.0 >= 3.6],
+		[
+			gtk3="yes"
+			CFLAGS="${CFLAGS} -DGTK_DISABLE_SINGLE_INCLUDES"
+			CFLAGS="${CFLAGS} -DGTK_DISABLE_DEPRECATED"
+			CFLAGS="${CFLAGS} -DGSEAL_ENABLE"
+		],
+		[gtk3="no"]
+	)
+	if test "x$gtk3" = "xno" ; then
+		PKG_CHECK_MODULES(
+			[GTK],
+			[gtk+-2.0 >= 2.18], 
+			[gtk2="yes"],	
+			[	
+				gtk2="no"
+				AC_MSG_RESULT(no)
+				AC_MSG_ERROR([
+You must have GTK+ 2.18.0 or newer development headers installed to build.
+
 You can disable the graphical modules with --disable-gtk.
-			])
-	]
-)
-dnl #fi
-AC_SUBST(GTK_CFLAGS)
-AC_SUBST(GTK_LIBS)
+				])
+			]
+		)
+	fi
 
-PKG_CHECK_MODULES(
-	[GTKDATABOX], 
-	[gtkdatabox >= 0.9.1.1], 
-	,
-	[
-		AC_MSG_RESULT(no)
-		AC_MSG_ERROR([
-You must have GTKDATABOX installed.
-You can disable the graphical modules with --disable-gtk.
-		])
-	]
-)
-AC_SUBST(GTKDATABOX_CFLAGS)
-AC_SUBST(GTKDATABOX_LIBS)
+	AC_SUBST(GTK_CFLAGS)
+	AC_SUBST(GTK_LIBS)
 
-AC_DEFINE(USE_GTK, 1, [Gtk gui enabled])	
+dnl ######################################################################
+dnl # gtkdatabox check                                                   #
+dnl ######################################################################
+	PKG_CHECK_MODULES(
+		[GTKDATABOX], 
+		[gtkdatabox >= 0.9.1.1], 
+		[gtkdatabox="yes"],
+		[gtkdatabox="no"]
+	)
+	AC_SUBST(GTKDATABOX_CFLAGS)
+	AC_SUBST(GTKDATABOX_LIBS)
 
-dnl #fi
+	AC_DEFINE(USE_GTK, 1, [Gtk gui enabled])	
+fi
 
 dnl #####################################################################
 dnl # COMEDI								#
@@ -396,45 +393,44 @@ dnl #######################################################################
 dnl # FFTW3
 dnl #######################################################################
 if test "x$fftw3" = "xyes" ; then
-AC_CHECK_HEADER(
-	[fftw3.h],
-	[
-		AC_DEFINE(
+	AC_CHECK_HEADER(
+		[fftw3.h],
+		[
+			AC_DEFINE(
 				[HAVE_FFTW3_H], 
 				[1],
 				[Define to 1 if you have <fftw3.h>.]
-		)
-	],
-	[
-		AC_MSG_ERROR([
+			)
+		],
+		[
+			AC_MSG_ERROR([
 sorry, but I need fftw3.h to build.
 
 If you do not want to install fftw3 use --disable-fftw3.
-		])
-	]
-)
+			])
+		]
+	)
 
-PKG_CHECK_MODULES(
-	FFTW3,
-	[fftw3], 
-	, 
-	[
-		AC_MSG_RESULT(no)
-		fftw3="no"
-		AC_MSG_ERROR([	
+	PKG_CHECK_MODULES(
+		FFTW3,
+		[fftw3], 
+		, 
+		[
+			AC_MSG_RESULT(no)
+			fftw3="no"
+			AC_MSG_ERROR([	
 You must have FFTW installed to build.
 
 If you do not want fftw3 use --disable-fftw3.
-		])
-	]
-)
+			])
+		]
+	)
 
-if test "x$fftw3" = "xyes" ; then
-	AC_DEFINE(USE_FFTW3, 1, [FFTW3 enabled])	
-	AC_SUBST(FFTW3_CFLAGS)
-	AC_SUBST(FFTW3_LIBS)
-fi
-
+	if test "x$fftw3" = "xyes" ; then
+		AC_DEFINE(USE_FFTW3, 1, [FFTW3 enabled])	
+		AC_SUBST(FFTW3_CFLAGS)
+		AC_SUBST(FFTW3_LIBS)
+	fi
 fi
 
 dnl ################################################################
@@ -466,6 +462,7 @@ AM_CONDITIONAL(ENABLE_NIDAQMX, test "x$nidaqmx" = "xyes")
 AM_CONDITIONAL(ENABLE_NIDAQMXBASE, test "x$nidaqmxbase" = "xyes")
 AM_CONDITIONAL(ENABLE_FFTW3, test "x$fftw3" = "xyes")
 AM_CONDITIONAL(ENABLE_GTK, test "x$gtk" = "xyes")
+AM_CONDITIONAL(ENABLE_GTKDATABOX, test "x$gtkdatabox" = "xyes")
 
 # Checks for header files.
 #AC_CHECK_HEADERS([string.h])
@@ -515,11 +512,16 @@ echo " * Build GUI:                        yes"
 else
 echo " * Build GUI:                        no"
 fi
-dnl #if test "x$gtk3" = "xyes"; then
-dnl #echo " * gtk+-3 support:                   yes"
-dnl #fi
+if test "x$gtk3" = "xyes"; then
+echo " * gtk+-3 support:                   yes"
+fi
 if test "x$gtk2" = "xyes"; then
 echo " * gtk+-2 support:                   yes"
+fi
+if test "x$gtkdatabox" = "xyes"; then
+echo " * gtkdatabox support:               yes"
+else
+echo " * gtkdatabox support:               no"
 fi
 if test "x$comedi" = "xyes"; then
 echo " * Build COMEDI support:             yes"
