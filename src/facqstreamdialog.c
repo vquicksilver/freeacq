@@ -112,8 +112,22 @@ static void facq_stream_dialog_get_property(GObject *self,guint property_id,GVal
 static void facq_stream_dialog_constructed(GObject *self)
 {
 	FacqStreamDialog *dialog = FACQ_STREAM_DIALOG(self);
+#if GTK_MAJOR_VERSION > 2
+	GtkWidget *grid = NULL, *widget = NULL, *content_area = NULL;
+#else
 	GtkWidget *vbox = NULL, *table = NULL, *widget = NULL;
+#endif
 
+
+#if GTK_MAJOR_VERSION > 2
+	dialog->priv->dialog =
+		gtk_dialog_new_with_buttons(_("Stream name"),
+				GTK_WINDOW(dialog->priv->top_window),
+					GTK_DIALOG_MODAL |
+						GTK_DIALOG_DESTROY_WITH_PARENT,
+							_("_Cancel"),GTK_RESPONSE_CANCEL,
+								_("_OK"),GTK_RESPONSE_OK,NULL);
+#else
 	dialog->priv->dialog = 
 		gtk_dialog_new_with_buttons(_("Stream name"),
 				GTK_WINDOW(dialog->priv->top_window),
@@ -121,32 +135,56 @@ static void facq_stream_dialog_constructed(GObject *self)
 						GTK_DIALOG_DESTROY_WITH_PARENT,
 							GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,
 								GTK_STOCK_OK,GTK_RESPONSE_OK,NULL);
+#endif
 
+
+#if GTK_MAJOR_VERSION > 2
+	grid = gtk_grid_new();
+	content_area = gtk_dialog_get_content_area(GTK_DIALOG(dialog->priv->dialog));
+#else
 	vbox = gtk_dialog_get_content_area(GTK_DIALOG(dialog->priv->dialog));
 	table = gtk_table_new(1,2,FALSE);
+#endif
 	
 	widget = gtk_label_new(_("Name:"));
 	gtk_label_set_justify(GTK_LABEL(widget),GTK_JUSTIFY_LEFT);
+
+#if GTK_MAJOR_VERSION > 2
+	gtk_grid_attach(GTK_GRID(grid),widget,0,0,1,1);
+#else
 	gtk_table_attach_defaults(GTK_TABLE(table),widget,0,1,0,1);
-	
+#endif
+
 	widget = gtk_entry_new();
 	if(dialog->priv->name)
 		gtk_entry_set_text(GTK_ENTRY(widget),dialog->priv->name);
 	else
 		gtk_entry_set_text(GTK_ENTRY(widget),_("Untitled stream"));
+
+#if GTK_MAJOR_VERSION > 2
+	gtk_entry_set_icon_from_name(GTK_ENTRY(widget),GTK_ENTRY_ICON_PRIMARY,"edit-clear");
+	gtk_entry_set_icon_from_name(GTK_ENTRY(widget),GTK_ENTRY_ICON_SECONDARY,"edit-delete");
+#else
 	gtk_entry_set_icon_from_stock(GTK_ENTRY(widget),GTK_ENTRY_ICON_PRIMARY,GTK_STOCK_CLEAR);
 	gtk_entry_set_icon_from_stock(GTK_ENTRY(widget),GTK_ENTRY_ICON_SECONDARY,GTK_STOCK_EDIT);
+#endif
+
 	gtk_entry_set_icon_activatable(GTK_ENTRY(widget),GTK_ENTRY_ICON_PRIMARY,TRUE);
 	gtk_entry_set_icon_activatable(GTK_ENTRY(widget),GTK_ENTRY_ICON_SECONDARY,FALSE);
 	gtk_entry_set_icon_sensitive(GTK_ENTRY(widget),GTK_ENTRY_ICON_PRIMARY,TRUE);
 	g_signal_connect(widget,"icon-press",
 				G_CALLBACK(name_icons_callback),dialog);
 	dialog->priv->name_entry = widget;
+
+#if GTK_MAJOR_VERSION > 2
+	gtk_grid_attach(GTK_GRID(grid),widget,1,0,1,1);
+	gtk_container_add(GTK_CONTAINER(content_area),grid);
+#else
 	gtk_table_attach_defaults(GTK_TABLE(table),widget,1,2,0,1);
-
 	gtk_widget_show_all(table);
-
 	gtk_container_add(GTK_CONTAINER(vbox),table);
+#endif
+
 }
 
 static void facq_stream_dialog_finalize(GObject *self)

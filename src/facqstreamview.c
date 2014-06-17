@@ -139,7 +139,11 @@ struct _FacqStreamViewPrivate {
 	GtkWidget *scroll_window;
 	GtkWidget *image;
 	GtkWidget *label;
+#if GTK_MAJOR_VERSION > 2
+	GtkWidget *grid;
+#else
 	GtkWidget *vbox;
+#endif
 	GtkWidget *frame;
 	guint n_items;
 };
@@ -178,9 +182,16 @@ static void facq_stream_view_constructed(GObject *self)
 	
 	gtk_tree_view_set_grid_lines(GTK_TREE_VIEW(view->priv->list),
 				GTK_TREE_VIEW_GRID_LINES_BOTH);
-
+#if GTK_MAJOR_VERSION > 2
+	view->priv->grid = gtk_grid_new();
+#else
 	view->priv->vbox = gtk_vbox_new(FALSE,0);
+#endif
+#if GTK_MAJOR_VERSION > 2
+	view->priv->image = gtk_image_new_from_icon_name("document-new",GTK_ICON_SIZE_DIALOG);
+#else
 	view->priv->image = gtk_image_new_from_stock(GTK_STOCK_NEW,GTK_ICON_SIZE_DIALOG);
+#endif
 	view->priv->frame = gtk_frame_new(_("Stream details:"));
 	gtk_frame_set_shadow_type(GTK_FRAME(view->priv->frame),GTK_SHADOW_NONE);
 	gtk_container_add(GTK_CONTAINER(view->priv->frame),view->priv->scroll_window);
@@ -190,9 +201,15 @@ static void facq_stream_view_constructed(GObject *self)
 	gtk_widget_set_size_request(view->priv->label,256,-1);
 	gtk_label_set_line_wrap(GTK_LABEL(view->priv->label),TRUE);
 	gtk_label_set_line_wrap_mode(GTK_LABEL(view->priv->label),PANGO_WRAP_WORD);
+#if GTK_MAJOR_VERSION > 2
+	gtk_grid_attach(GTK_GRID(view->priv->grid),view->priv->label,0,0,1,1);
+	gtk_grid_attach(GTK_GRID(view->priv->grid),view->priv->image,0,1,1,1);
+	gtk_grid_attach(GTK_GRID(view->priv->grid),view->priv->frame,0,2,1,1);
+#else
 	gtk_box_pack_start(GTK_BOX(view->priv->vbox),view->priv->label,FALSE,FALSE,0);
 	gtk_box_pack_start(GTK_BOX(view->priv->vbox),view->priv->image,FALSE,FALSE,3);
 	gtk_box_pack_end(GTK_BOX(view->priv->vbox),view->priv->frame,TRUE,TRUE,0);
+#endif
 }
 
 static void facq_stream_view_finalize(GObject *self)
@@ -211,8 +228,13 @@ static void facq_stream_view_finalize(GObject *self)
 	if(GTK_IS_WIDGET(view->priv->scroll_window))
 		gtk_widget_destroy(view->priv->scroll_window);
 
+#if GTK_MAJOR_VERSION > 2
+	if(GTK_IS_WIDGET(view->priv->grid))
+		gtk_widget_destroy(view->priv->grid);
+#else
 	if(GTK_IS_WIDGET(view->priv->vbox))
 		gtk_widget_destroy(view->priv->vbox);
+#endif
 
 	if(GTK_IS_WIDGET(view->priv->frame))
 		gtk_widget_destroy(view->priv->frame);
@@ -276,7 +298,11 @@ FacqStreamView *facq_stream_view_new(void)
 GtkWidget *facq_stream_view_get_widget(const FacqStreamView *view)
 {
 	g_return_val_if_fail(FACQ_IS_STREAM_VIEW(view),NULL);
+#if GTK_MAJOR_VERSION > 2
+	return view->priv->grid;
+#else
 	return view->priv->vbox;
+#endif
 }
 
 /**
@@ -294,44 +320,79 @@ void facq_stream_view_set_status(FacqStreamView *view,FacqStreamViewStatus statu
 
 	switch(status){
 	case FACQ_STREAM_VIEW_STATUS_NO_STREAM:
+#if GTK_MAJOR_VERSION > 2
+		gtk_image_set_from_icon_name(GTK_IMAGE(view->priv->image),
+						"document-new",GTK_ICON_SIZE_DIALOG);
+#else
 		gtk_image_set_from_stock(GTK_IMAGE(view->priv->image),
 						GTK_STOCK_NEW,GTK_ICON_SIZE_DIALOG);
+#endif
 		gtk_label_set_text(GTK_LABEL(view->priv->label),
 				_("Create a new stream, or open an existing stream from a file."));
 	break;
 	case FACQ_STREAM_VIEW_STATUS_NEW_STREAM:
+#if GTK_MAJOR_VERSION > 2
+		gtk_image_set_from_icon_name(GTK_IMAGE(view->priv->image),
+						"network-offline",GTK_ICON_SIZE_DIALOG);
+#else
 		gtk_image_set_from_stock(GTK_IMAGE(view->priv->image),
 						GTK_STOCK_DISCONNECT,GTK_ICON_SIZE_DIALOG);
+#endif
 		gtk_label_set_text(GTK_LABEL(view->priv->label),
 				_("You must add a source, optionally some operations, and a sink."));
 	break;
 	case FACQ_STREAM_VIEW_STATUS_WITH_SOURCE:
+#if GTK_MAJOR_VERSION > 2
+		gtk_image_set_from_icon_name(GTK_IMAGE(view->priv->image),
+						"network-offline",GTK_ICON_SIZE_DIALOG);
+#else
 		gtk_image_set_from_stock(GTK_IMAGE(view->priv->image),
 						GTK_STOCK_DISCONNECT,GTK_ICON_SIZE_DIALOG);
+#endif
 		gtk_label_set_text(GTK_LABEL(view->priv->label),
 				_("You must add a source, optionally some operations, and a sink."));
 	break;
 	case FACQ_STREAM_VIEW_STATUS_WITH_SINK:
+#if GTK_MAJOR_VERSION > 2
+		gtk_image_set_from_icon_name(GTK_IMAGE(view->priv->image),
+						"network-wired",GTK_ICON_SIZE_DIALOG);
+#else
 		gtk_image_set_from_stock(GTK_IMAGE(view->priv->image),
 						GTK_STOCK_CONNECT,GTK_ICON_SIZE_DIALOG);
+#endif
 		gtk_label_set_text(GTK_LABEL(view->priv->label),
 				_("Stream is ready to be started, press play to start the acquisition."));
 	break;
 	case FACQ_STREAM_VIEW_STATUS_PLAY:
+#if GTK_MAJOR_VERSION > 2
+		gtk_image_set_from_icon_name(GTK_IMAGE(view->priv->image),
+						"media-playback-start",GTK_ICON_SIZE_DIALOG);
+#else
 		gtk_image_set_from_stock(GTK_IMAGE(view->priv->image),
 						GTK_STOCK_MEDIA_PLAY,GTK_ICON_SIZE_DIALOG);
+#endif
 		gtk_label_set_text(GTK_LABEL(view->priv->label),
 				_("Data acquisition is in progress, press stop when desired"));
 	break;
 	case FACQ_STREAM_VIEW_STATUS_STOP:
+#if GTK_MAJOR_VERSION > 2
+		gtk_image_set_from_icon_name(GTK_IMAGE(view->priv->image),
+						"media-playback-stop",GTK_ICON_SIZE_DIALOG);
+#else
 		gtk_image_set_from_stock(GTK_IMAGE(view->priv->image),
 						GTK_STOCK_MEDIA_STOP,GTK_ICON_SIZE_DIALOG);
+#endif
 		gtk_label_set_text(GTK_LABEL(view->priv->label),
 				_("Stream stopped, press play to start again"));
 	break;
 	case FACQ_STREAM_VIEW_STATUS_ERROR:
+#if GTK_MAJOR_VERSION > 2
+		gtk_image_set_from_icon_name(GTK_IMAGE(view->priv->image),
+						"process-stop",GTK_ICON_SIZE_DIALOG);
+#else
 		gtk_image_set_from_stock(GTK_IMAGE(view->priv->image),
 						GTK_STOCK_STOP,GTK_ICON_SIZE_DIALOG);
+#endif
 		gtk_label_set_text(GTK_LABEL(view->priv->label),
 				_("Some error happened while running the stream"));
 	break;
