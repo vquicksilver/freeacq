@@ -112,7 +112,11 @@ static void facq_capture_menu_constructed(GObject *self)
 	//Capture menu 
 	menu = gtk_menu_new();
 
+#if GTK_MAJOR_VERSION > 2
+	menuitem = gtk_menu_item_new_with_label(_("Quit"));
+#else
 	menuitem = gtk_image_menu_item_new_from_stock(GTK_STOCK_QUIT,NULL);
+#endif
         g_signal_connect(menuitem,"activate",
                                 G_CALLBACK(gtk_main_quit),NULL);
         gtk_menu_shell_append(GTK_MENU_SHELL(menu),menuitem);
@@ -126,28 +130,44 @@ static void facq_capture_menu_constructed(GObject *self)
 	//Stream
 	menu = gtk_menu_new();
 
+#if GTK_MAJOR_VERSION > 2
+	menuitem = gtk_menu_item_new_with_label(_("Preferences"));
+#else
 	menuitem = gtk_image_menu_item_new_from_stock(GTK_STOCK_PREFERENCES,NULL);
+#endif
 	capmenu->priv->preferences = menuitem;
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu),menuitem);
 	g_signal_connect(menuitem,"activate",
 				G_CALLBACK(facq_capture_menu_callback_preferences),capmenu->priv->data);
 	gtk_widget_show(menuitem);
 
+#if GTK_MAJOR_VERSION > 2
+	menuitem = gtk_menu_item_new_with_label(_("New"));
+#else
 	menuitem = gtk_image_menu_item_new_from_stock(GTK_STOCK_NEW,NULL);
+#endif
 	capmenu->priv->new = menuitem;
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu),menuitem);
 	g_signal_connect(menuitem,"activate",
                                 G_CALLBACK(facq_capture_menu_callback_new),capmenu->priv->data);
 	gtk_widget_show(menuitem);
 
+#if GTK_MAJOR_VERSION > 2
+	menuitem = gtk_menu_item_new_with_label(_("Open"));
+#else
 	menuitem = gtk_image_menu_item_new_from_stock(GTK_STOCK_OPEN,NULL);
+#endif
 	capmenu->priv->open = menuitem;
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu),menuitem);
 	g_signal_connect(menuitem,"activate",
                                 G_CALLBACK(facq_capture_menu_callback_open),capmenu->priv->data);
 	gtk_widget_show(menuitem);
 
+#if GTK_MAJOR_VERSION > 2
+	menuitem = gtk_menu_item_new_with_label(_("Save as..."));
+#else
 	menuitem = gtk_image_menu_item_new_from_stock(GTK_STOCK_SAVE_AS,NULL);
+#endif
 	capmenu->priv->save_as = menuitem;
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu),menuitem);
 	g_signal_connect(menuitem,"activate",
@@ -155,7 +175,11 @@ static void facq_capture_menu_constructed(GObject *self)
 	gtk_widget_set_sensitive(menuitem,FALSE);
 	gtk_widget_show(menuitem);
 
+#if GTK_MAJOR_VERSION > 2
+	menuitem = gtk_menu_item_new_with_label(_("Close"));
+#else
 	menuitem = gtk_image_menu_item_new_from_stock(GTK_STOCK_CLOSE,NULL);
+#endif
 	capmenu->priv->close = menuitem;
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu),menuitem);
 	g_signal_connect(menuitem,"activate",
@@ -170,8 +194,12 @@ static void facq_capture_menu_constructed(GObject *self)
 
 	//Control
 	menu = gtk_menu_new();
-	
+
+#if GTK_MAJOR_VERSION > 2
+	menuitem = gtk_menu_item_new_with_label(_("Play"));
+#else
 	menuitem = gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_PLAY,NULL);
+#endif
 	capmenu->priv->play = menuitem;
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu),menuitem);
 	g_signal_connect(menuitem,"activate",
@@ -179,7 +207,11 @@ static void facq_capture_menu_constructed(GObject *self)
 	gtk_widget_set_sensitive(menuitem,FALSE);
 	gtk_widget_show(menuitem);
 
+#if GTK_MAJOR_VERSION > 2
+	menuitem = gtk_menu_item_new_with_label(_("Stop"));
+#else
 	menuitem = gtk_image_menu_item_new_from_stock(GTK_STOCK_MEDIA_STOP,NULL);
+#endif
 	capmenu->priv->stop = menuitem;
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu),menuitem);
 	g_signal_connect(menuitem,"activate",
@@ -187,7 +219,11 @@ static void facq_capture_menu_constructed(GObject *self)
 	gtk_widget_set_sensitive(GTK_WIDGET(menuitem),FALSE);
 	gtk_widget_show(menuitem);
 
+#if GTK_MAJOR_VERSION > 2
+	menuitem = gtk_menu_item_new_with_label(_("Add"));
+#else
 	menuitem = gtk_image_menu_item_new_from_stock(GTK_STOCK_ADD,NULL);
+#endif
 	capmenu->priv->add = menuitem;
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu),menuitem);
 	g_signal_connect(menuitem,"activate",
@@ -195,7 +231,11 @@ static void facq_capture_menu_constructed(GObject *self)
 	gtk_widget_set_sensitive(GTK_WIDGET(menuitem),FALSE);
 	gtk_widget_show(menuitem);
 
+#if GTK_MAJOR_VERSION > 2
+	menuitem = gtk_menu_item_new_with_label(_("Remove"));
+#else
 	menuitem = gtk_image_menu_item_new_from_stock(GTK_STOCK_REMOVE,NULL);
+#endif
 	capmenu->priv->remove = menuitem;
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu),menuitem);
 	g_signal_connect(menuitem,"activate",
@@ -203,7 +243,11 @@ static void facq_capture_menu_constructed(GObject *self)
 	gtk_widget_set_sensitive(GTK_WIDGET(menuitem),FALSE);
 	gtk_widget_show(menuitem);
 
+#if GTK_MAJOR_VERSION > 2
+	menuitem = gtk_menu_item_new_with_label(_("Clear"));
+#else
 	menuitem = gtk_image_menu_item_new_from_stock(GTK_STOCK_CLEAR,NULL);
+#endif
 	capmenu->priv->clear = menuitem;
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu),menuitem);
 	g_signal_connect(menuitem,"activate",
@@ -219,8 +263,12 @@ static void facq_capture_menu_constructed(GObject *self)
 	//Log
 	menu = gtk_menu_new();
 
+#if GTK_MAJOR_VERSION == 2
 	menuitem = gtk_image_menu_item_new_from_stock(GTK_STOCK_FIND,NULL);
         gtk_menu_item_set_label(GTK_MENU_ITEM(menuitem),_("Read"));
+#else
+	menuitem = gtk_menu_item_new_with_label(_("Read"));
+#endif
 	g_signal_connect(menuitem,"activate",
 			G_CALLBACK(facq_capture_menu_callback_log),capmenu->priv->data);
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu),menuitem);
@@ -234,14 +282,20 @@ static void facq_capture_menu_constructed(GObject *self)
 	//Help menu
 	menu = gtk_menu_new();
 
+#if GTK_MAJOR_VERSION > 2
+	menuitem = gtk_menu_item_new_with_label(_("About"));
+#else
         menuitem = gtk_image_menu_item_new_from_stock(GTK_STOCK_ABOUT,NULL);
+#endif
         g_signal_connect(menuitem,"activate",
                 G_CALLBACK(facq_capture_menu_callback_about),capmenu->priv->data);
         gtk_menu_shell_append(GTK_MENU_SHELL(menu),menuitem);
         gtk_widget_show(menuitem);
 
         menuitem = gtk_menu_item_new_with_label(_("Help"));
+#if GTK_MAJOR_VERSION == 2
         gtk_menu_item_set_right_justified(GTK_MENU_ITEM(menuitem),TRUE);
+#endif
         gtk_widget_show(menuitem);
         gtk_menu_item_set_submenu(GTK_MENU_ITEM(menuitem),menu);
         gtk_menu_shell_append(GTK_MENU_SHELL(menubar),menuitem);
