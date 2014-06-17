@@ -20,3 +20,4 @@ src/facqstreamdialog.c
 src/facqstreamview.c
 src/facqunits.c
 src/facqcapturemain.c
+src/facqdyndialog.c

@@ -19,6 +19,7 @@
  */
 #include <gtk/gtk.h>
 #include <string.h>
+#include "facqi18n.h"
 #include "facqchanlist.h"
 #include "facqchanlisteditor.h"
 #include "facqfilechooser.h"
@@ -307,15 +308,26 @@ static GtkWidget *facq_dyn_dialog_get_widget_for_function(gchar **details)
 {
 	GtkWidget *ret = NULL;
 
-	/* deprecated code, but it's the only way to be compatible */
 
+#if GTK_MAJOR_VERSION > 2
+	ret = gtk_combo_box_text_new();
+	gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(ret),NULL,_("Random"));
+	gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(ret),NULL,_("Sine"));
+	gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(ret),NULL,_("Cosine"));
+	gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(ret),NULL,_("Flat"));
+	gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(ret),NULL,_("Sawtooth"));
+	gtk_combo_box_text_append(GTK_COMBO_BOX_TEXT(ret),NULL,_("Square"));
+#else
+	/* deprecated code, but it's the only way to be compatible with all gtk2
+	 * versions with the same code. */
 	ret = gtk_combo_box_new_text();
-	gtk_combo_box_append_text(GTK_COMBO_BOX(ret),"Random");
-	gtk_combo_box_append_text(GTK_COMBO_BOX(ret),"Sine");
-	gtk_combo_box_append_text(GTK_COMBO_BOX(ret),"Cosine");
-	gtk_combo_box_append_text(GTK_COMBO_BOX(ret),"Flat");
-	gtk_combo_box_append_text(GTK_COMBO_BOX(ret),"Sawtooth");
-	gtk_combo_box_append_text(GTK_COMBO_BOX(ret),"Square");
+	gtk_combo_box_append_text(GTK_COMBO_BOX(ret),_("Random"));
+	gtk_combo_box_append_text(GTK_COMBO_BOX(ret),_("Sine"));
+	gtk_combo_box_append_text(GTK_COMBO_BOX(ret),_("Cosine"));
+	gtk_combo_box_append_text(GTK_COMBO_BOX(ret),_("Flat"));
+	gtk_combo_box_append_text(GTK_COMBO_BOX(ret),_("Sawtooth"));
+	gtk_combo_box_append_text(GTK_COMBO_BOX(ret),_("Square"));
+#endif
 	gtk_combo_box_set_active(GTK_COMBO_BOX(ret),0);
 
 	return ret;
@@ -355,15 +367,28 @@ static FacqFileChooser *facq_dyn_dialog_get_dialog_for_filechooser(gchar **detai
 
 static gpointer facq_dyn_dialog_get_widget_from_details(gchar **details,GtkWidget *top_window)
 {
+#if GTK_MAJOR_VERSION > 2
+	GtkWidget *grid = NULL, *label = NULL, *widget = NULL;
+#else
 	GtkWidget *hbox = NULL, *label = NULL, *widget = NULL;
+#endif
 	FacqChanlistEditor *ed = NULL;
 	FacqFileChooser *chooser = NULL;
 
 	if(g_strcmp0(details[0],"CHANLIST") != 0 && g_strcmp0(details[0],"FILENAME") != 0){
-		hbox = gtk_hbox_new(FALSE,0);
-		label = gtk_label_new(details[1]);
-		gtk_box_pack_start(GTK_BOX(hbox),label,FALSE,FALSE,0);
 
+#if GTK_MAJOR_VERSION > 2
+		grid = gtk_grid_new();
+#else
+		hbox = gtk_hbox_new(FALSE,0);
+#endif
+		label = gtk_label_new(details[1]);
+
+#if GTK_MAJOR_VERSION > 2
+		gtk_grid_attach(GTK_GRID(grid),label,0,0,1,1);
+#else
+		gtk_box_pack_start(GTK_BOX(hbox),label,FALSE,FALSE,0);
+#endif
 		if(g_strcmp0(details[0],"BOOLEAN") == 0){
 			widget = facq_dyn_dialog_get_widget_for_boolean(details);
 		}
@@ -379,8 +404,13 @@ static gpointer facq_dyn_dialog_get_widget_from_details(gchar **details,GtkWidge
 		if(g_strcmp0(details[0],"FUNCTION") == 0){
 			widget = facq_dyn_dialog_get_widget_for_function(details);
 		}
+#if GTK_MAJOR_VERSION > 2
+		gtk_grid_attach(GTK_GRID(grid),widget,1,0,1,1);
+		return grid;
+#else
 		gtk_box_pack_end(GTK_BOX(hbox),widget,FALSE,FALSE,0);
 		return hbox;
+#endif
 	}
 	else {
 		if(g_strcmp0(details[0],"CHANLIST") == 0){
@@ -507,7 +537,11 @@ static void facq_dyn_dialog_get_value_from_function_widget(gpointer var,GtkWidge
 			list = list->next;
 	}
 
+#if GTK_MAJOR_VERSION > 2
+	active_string = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(widget));
+#else
 	active_string = gtk_combo_box_get_active_text(GTK_COMBO_BOX(widget));
+#endif
 	
 	if(g_strcmp0(active_string,"Random") == 0){
 		*value = 0;
@@ -691,12 +725,22 @@ static void facq_dyn_dialog_constructed(GObject *self)
 		}
 
 	if(!widget_is_dialog){
+#if GTK_MAJOR_VERSION > 2
+		dialog->priv->dialog = gtk_dialog_new_with_buttons("Preferences",
+						GTK_WINDOW(dialog->priv->top_window),
+							GTK_DIALOG_MODAL |
+								GTK_DIALOG_DESTROY_WITH_PARENT,
+									_("_Cancel"),GTK_RESPONSE_CANCEL,
+										_("_OK"),GTK_RESPONSE_OK,
+											NULL);
+#else
 		dialog->priv->dialog = gtk_dialog_new_with_buttons("Preferences",
 						GTK_WINDOW(dialog->priv->top_window),
 							GTK_DIALOG_MODAL |
 								GTK_DIALOG_DESTROY_WITH_PARENT,
 									GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 										GTK_STOCK_OK, GTK_RESPONSE_OK,NULL);
+#endif
 
 		vbox = gtk_dialog_get_content_area(GTK_DIALOG(dialog->priv->dialog));
 
