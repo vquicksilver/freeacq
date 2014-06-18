@@ -278,6 +278,9 @@ static void facq_catalog_dialog_constructed(GObject *self)
 #if GTK_MAJOR_VERSION > 2
 		combobox = gtk_combo_box_text_new();
 		grid = gtk_grid_new();
+		gtk_grid_set_row_spacing(GTK_GRID(grid),0);
+		gtk_grid_set_row_homogeneous(GTK_GRID(grid),FALSE);
+		gtk_orientable_set_orientation(GTK_ORIENTABLE(grid),GTK_ORIENTATION_VERTICAL);
 #else
 		combobox = gtk_combo_box_new_text();
 		main_vbox = gtk_vbox_new(FALSE,0);
@@ -288,6 +291,9 @@ static void facq_catalog_dialog_constructed(GObject *self)
 #if GTK_MAJOR_VERSION > 2
 		combobox = gtk_combo_box_text_new();
 		grid = gtk_grid_new();
+		gtk_grid_set_row_spacing(GTK_GRID(grid),0);
+		gtk_grid_set_row_homogeneous(GTK_GRID(grid),FALSE);
+		gtk_orientable_set_orientation(GTK_ORIENTABLE(grid),GTK_ORIENTATION_VERTICAL);
 #else
 		combobox = gtk_combo_box_new_text();
 		main_vbox = gtk_vbox_new(FALSE,0);
@@ -336,6 +342,10 @@ static void facq_catalog_dialog_constructed(GObject *self)
 
 #if GTK_MAJOR_VERSION > 2
 	hgrid = gtk_grid_new();
+	gtk_grid_set_column_spacing(GTK_GRID(hgrid),0);
+	gtk_grid_set_column_homogeneous(GTK_GRID(hgrid),FALSE);
+	gtk_orientable_set_orientation(GTK_ORIENTABLE(hgrid),
+					GTK_ORIENTATION_HORIZONTAL);
 #else
 	hbox = gtk_hbox_new(FALSE,0);
 #endif
@@ -356,8 +366,8 @@ static void facq_catalog_dialog_constructed(GObject *self)
 		dialog->priv->combobox = combobox;
 
 #if GTK_MAJOR_VERSION > 2
-		gtk_grid_attach(GTK_GRID(grid),combobox,0,0,1,1);
-		gtk_grid_attach(GTK_GRID(grid),hgrid,1,0,1,1);
+		gtk_container_add(GTK_GRID(grid),combobox);
+		gtk_container_add(GTK_GRID(grid),hgrid);
 		gtk_container_add(GTK_CONTAINER(ca),grid);
 #else
 		gtk_box_pack_start(GTK_BOX(main_vbox),combobox,FALSE,FALSE,0);
@@ -388,6 +398,7 @@ static void facq_catalog_dialog_constructed(GObject *self)
 	vgrid = gtk_grid_new();
 	gtk_container_add(GTK_CONTAINER(align),frame);
 	gtk_container_add(GTK_CONTAINER(frame),vgrid);
+	gtk_orientable_set_orientation(GTK_ORIENTABLE(vgrid),GTK_ORIENTATION_VERTICAL);
 #else
 	vbox = gtk_vbox_new(FALSE,8);
 	gtk_container_add(GTK_CONTAINER(align),frame);

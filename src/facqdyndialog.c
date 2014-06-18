@@ -452,16 +452,20 @@ static gpointer facq_dyn_dialog_get_variable_from_details(const gchar *detail0)
 	return ret;
 }
 
-static void facq_dyn_dialog_get_value_from_uint_widget(gpointer var,GtkWidget *hbox)
+static void facq_dyn_dialog_get_value_from_uint_widget(gpointer var,GtkWidget *container)
 {
 	guint *integer = (guint *)var;
 	gdouble tmp = 0;
 	GtkWidget *widget = NULL;
 	GList *list = NULL;
 
-	g_return_if_fail(GTK_IS_BOX(hbox));
+#if GTK_MAJOR_VERSION > 2
+	g_return_if_fail(GTK_IS_GRID(container));
+#else
+	g_return_if_fail(GTK_IS_BOX(container));
+#endif
 
-	list = gtk_container_get_children(GTK_CONTAINER(hbox));
+	list = gtk_container_get_children(GTK_CONTAINER(container));
 	while(list != NULL){
 		widget = list->data;
 		if(GTK_IS_SPIN_BUTTON(widget))
@@ -475,15 +479,20 @@ static void facq_dyn_dialog_get_value_from_uint_widget(gpointer var,GtkWidget *h
 	*integer = (guint)tmp;
 }
 
-static void facq_dyn_dialog_get_value_from_boolean_widget(gpointer var,GtkWidget *hbox)
+static void facq_dyn_dialog_get_value_from_boolean_widget(gpointer var,GtkWidget *container)
 {
 	gboolean *boolean = (gboolean *)var;
 	GtkWidget *widget = NULL;
 	GList *list = NULL;
 	gboolean tmp = FALSE;
 
-	g_return_if_fail(GTK_IS_BOX(hbox));
-	list = gtk_container_get_children(GTK_CONTAINER(hbox));
+#if GTK_MAJOR_VERSION > 2
+	g_return_if_fail(GTK_IS_GRID(container));
+#else
+	g_return_if_fail(GTK_IS_BOX(container));
+#endif
+
+	list = gtk_container_get_children(GTK_CONTAINER(container));
 	while(list != NULL){
 		widget = list->data;
 		if(GTK_IS_SPIN_BUTTON(widget))
@@ -497,16 +506,20 @@ static void facq_dyn_dialog_get_value_from_boolean_widget(gpointer var,GtkWidget
 	*boolean = tmp;
 }
 
-static void facq_dyn_dialog_get_value_from_double_widget(gpointer var,GtkWidget *hbox)
+static void facq_dyn_dialog_get_value_from_double_widget(gpointer var,GtkWidget *container)
 {
 	gdouble *real = (gdouble *)var;
 	gdouble tmp = 0;
 	GtkWidget *widget = NULL;
 	GList *list = NULL;
 
-	g_return_if_fail(GTK_IS_BOX(hbox));
+#if GTK_MAJOR_VERSION > 2
+	g_return_if_fail(GTK_IS_GRID(container));
+#else
+	g_return_if_fail(GTK_IS_BOX(container));
+#endif
 
-	list = gtk_container_get_children(GTK_CONTAINER(hbox));
+	list = gtk_container_get_children(GTK_CONTAINER(container));
 	while(list != NULL){
 		widget = list->data;
 		if(GTK_IS_SPIN_BUTTON(widget))
@@ -519,16 +532,21 @@ static void facq_dyn_dialog_get_value_from_double_widget(gpointer var,GtkWidget 
 	*real = tmp;
 }
 
-static void facq_dyn_dialog_get_value_from_function_widget(gpointer var,GtkWidget *hbox)
+static void facq_dyn_dialog_get_value_from_function_widget(gpointer var,GtkWidget *container)
 {
 	GtkWidget *widget = NULL;
 	GList *list = NULL;
 	gchar *active_string = NULL;
 	guint *value = (guint *)var;
 
-	g_return_if_fail(GTK_IS_BOX(hbox));
+#if GTK_MAJOR_VERSION > 2
+	g_return_if_fail(GTK_IS_GRID(container));
+#else
+	g_return_if_fail(GTK_IS_BOX(container));
+#endif
 
-	list = gtk_container_get_children(GTK_CONTAINER(hbox));
+
+	list = gtk_container_get_children(GTK_CONTAINER(container));
 	while(list != NULL){
 		widget = list->data;
 		if(GTK_IS_COMBO_BOX(widget))
@@ -564,14 +582,18 @@ static void facq_dyn_dialog_get_value_from_function_widget(gpointer var,GtkWidge
 	g_free(active_string);
 }
 
-static gchar *facq_dyn_dialog_get_value_from_string_widget(GtkWidget *hbox)
+static gchar *facq_dyn_dialog_get_value_from_string_widget(GtkWidget *container)
 {
 	GtkWidget *widget = NULL;
 	GList *list = NULL;
 
-	g_return_val_if_fail(GTK_IS_BOX(hbox),NULL);
+#if GTK_MAJOR_VERSION > 2
+	g_return_val_if_fail(GTK_IS_GRID(container),NULL);
+#else
+	g_return_val_if_fail(GTK_IS_BOX(container),NULL);
+#endif
 
-	list = gtk_container_get_children(GTK_CONTAINER(hbox));
+	list = gtk_container_get_children(GTK_CONTAINER(container));
 	while(list != NULL){
 		widget = list->data;
 		if(GTK_IS_ENTRY(widget))

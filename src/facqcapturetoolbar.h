@@ -52,7 +52,7 @@ void facq_capture_toolbar_enable_add(FacqCaptureToolbar *toolbar);
 void facq_capture_toolbar_enable_remove(FacqCaptureToolbar *toolbar);
 void facq_capture_toolbar_enable_clear(FacqCaptureToolbar *toolbar);
 void facq_capture_toolbar_enable_play(FacqCaptureToolbar *toolbar);
-void facq_capture_toolbar_disable_stop(FacqCaptureToolbar *toolbar);
+void facq_capture_toolbar_enable_stop(FacqCaptureToolbar *toolbar);
 void facq_capture_toolbar_disable_add(FacqCaptureToolbar *toolbar);
 void facq_capture_toolbar_disable_remove(FacqCaptureToolbar *toolbar);
 void facq_capture_toolbar_disable_clear(FacqCaptureToolbar *toolbar);

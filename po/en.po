@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: freeacq 0.1\n"
 "Report-Msgid-Bugs-To: \"freeacq@gmail.com\"\n"
-"POT-Creation-Date: 2014-06-16 18:48+0200\n"
+"POT-Creation-Date: 2014-06-18 14:35+0200\n"
 "PO-Revision-Date: 2013-06-05 20:41+0200\n"
 "Last-Translator:  <victor.quicksilver@gmail.com>\n"
 "Language-Team: English\n"
@@ -115,7 +115,7 @@ msgstr "Page"
 msgid "Zoom"
 msgstr "Zoom"
 
-#: src/facqbafviewmenu.c:244 src/facqcapturemenu.c:243
+#: src/facqbafviewmenu.c:244 src/facqcapturemenu.c:295
 #: src/facqoscopemenu.c:201
 msgid "Help"
 msgstr "Help"
@@ -143,7 +143,7 @@ msgid "Error: %s"
 msgstr "Error: %s"
 
 #: src/facqcapture.c:187 src/facqcapture.c:386 src/facqcapture.c:469
-#: src/facqcapture.c:597 src/facqcapturemenu.c:121
+#: src/facqcapture.c:597 src/facqcapturemenu.c:125
 msgid "Capture"
 msgstr "Capture"
 
@@ -215,21 +215,70 @@ msgstr "Stream stopped"
 msgid "Error opening log"
 msgstr "Error opening log"
 
-#: src/facqcapturemenu.c:166
+#: src/facqcapturemenu.c:116
+msgid "Quit"
+msgstr ""
+
+#: src/facqcapturemenu.c:134
+#, fuzzy
+msgid "Preferences"
+msgstr "Page preferences"
+
+#: src/facqcapturemenu.c:145
+msgid "New"
+msgstr ""
+
+#: src/facqcapturemenu.c:156
+msgid "Open"
+msgstr ""
+
+#: src/facqcapturemenu.c:167
+msgid "Save as..."
+msgstr ""
+
+#: src/facqcapturemenu.c:179
+msgid "Close"
+msgstr ""
+
+#: src/facqcapturemenu.c:190
 msgid "Stream"
 msgstr "Stream"
 
-#: src/facqcapturemenu.c:214
+#: src/facqcapturemenu.c:199
+msgid "Play"
+msgstr ""
+
+#: src/facqcapturemenu.c:211
+msgid "Stop"
+msgstr ""
+
+#: src/facqcapturemenu.c:223
+msgid "Add"
+msgstr ""
+
+#: src/facqcapturemenu.c:235
+msgid "Remove"
+msgstr ""
+
+#: src/facqcapturemenu.c:247
+msgid "Clear"
+msgstr ""
+
+#: src/facqcapturemenu.c:258
 msgid "Control"
 msgstr "Control"
 
-#: src/facqcapturemenu.c:223
+#: src/facqcapturemenu.c:268 src/facqcapturemenu.c:270
 msgid "Read"
 msgstr "Read"
 
-#: src/facqcapturemenu.c:229
+#: src/facqcapturemenu.c:277
 msgid "Log"
 msgstr "Log"
+
+#: src/facqcapturemenu.c:286
+msgid "About"
+msgstr ""
 
 #: src/facqcapturemenucallbacks.c:217
 msgid "Freeacq Capture"
@@ -243,61 +292,73 @@ msgstr "A Stream manager and data capturer"
 msgid "Item not supported"
 msgstr "Item not supported"
 
-#: src/facqcatalogdialog.c:167 src/facqcatalogdialog.c:316
+#: src/facqcatalogdialog.c:170 src/facqcatalogdialog.c:346
+#: src/facqcatalogdialog.c:350
 msgid "Operations"
 msgstr "Operations"
 
-#: src/facqcatalogdialog.c:171 src/facqcatalogdialog.c:317
+#: src/facqcatalogdialog.c:174 src/facqcatalogdialog.c:348
+#: src/facqcatalogdialog.c:351
 msgid "Sinks"
 msgstr "Sinks"
 
-#: src/facqcatalogdialog.c:285
+#: src/facqcatalogdialog.c:302 src/facqcatalogdialog.c:310
 msgid "Choose a component"
 msgstr "Choose a component"
 
-#: src/facqcatalogdialog.c:302
+#: src/facqcatalogdialog.c:306 src/facqstreamdialog.c:127
+#: src/facqdyndialog.c:755
+msgid "_Cancel"
+msgstr ""
+
+#: src/facqcatalogdialog.c:307 src/facqstreamdialog.c:128
+#: src/facqdyndialog.c:756
+msgid "_OK"
+msgstr ""
+
+#: src/facqcatalogdialog.c:327
 msgid "Items"
 msgstr "Items"
 
-#: src/facqcatalogdialog.c:331
+#: src/facqcatalogdialog.c:384
 msgid "Selected Item"
 msgstr "Selected Item"
 
-#: src/facqchanlisteditor.c:128 src/facqchanlisteditor.c:140
-#: src/facqchanlisteditor.c:160 src/facqchanlisteditor.c:187
-#: src/facqchanlisteditor.c:412
+#: src/facqchanlisteditor.c:130 src/facqchanlisteditor.c:140
+#: src/facqchanlisteditor.c:153 src/facqchanlisteditor.c:173
+#: src/facqchanlisteditor.c:200 src/facqchanlisteditor.c:431
 msgid "Ground/RSE"
 msgstr "Ground/RSE"
 
-#: src/facqchanlisteditor.c:129 src/facqchanlisteditor.c:142
-#: src/facqchanlisteditor.c:163
+#: src/facqchanlisteditor.c:132 src/facqchanlisteditor.c:141
+#: src/facqchanlisteditor.c:155 src/facqchanlisteditor.c:176
 msgid "Common/NRSE"
 msgstr "Common/NRSE"
 
-#: src/facqchanlisteditor.c:130 src/facqchanlisteditor.c:144
-#: src/facqchanlisteditor.c:166
+#: src/facqchanlisteditor.c:134 src/facqchanlisteditor.c:142
+#: src/facqchanlisteditor.c:157 src/facqchanlisteditor.c:179
 msgid "Differential"
 msgstr "Differential"
 
-#: src/facqchanlisteditor.c:131 src/facqchanlisteditor.c:146
-#: src/facqchanlisteditor.c:169
+#: src/facqchanlisteditor.c:136 src/facqchanlisteditor.c:143
+#: src/facqchanlisteditor.c:159 src/facqchanlisteditor.c:182
 msgid "Other/Default"
 msgstr "Other/Default"
 
-#: src/facqchanlisteditor.c:319
+#: src/facqchanlisteditor.c:338
 msgid "Number of channels"
 msgstr "Number of channels"
 
-#: src/facqchanlisteditor.c:332 src/facqchanlisteditor.c:405
+#: src/facqchanlisteditor.c:351 src/facqchanlisteditor.c:424
 msgid "Analog reference"
 msgstr "Analog reference"
 
-#: src/facqchanlisteditor.c:379 src/facqchanlisteditor.c:426
+#: src/facqchanlisteditor.c:398 src/facqchanlisteditor.c:445
 #: src/facqlegend.c:110
 msgid "Channel"
 msgstr "Channel"
 
-#: src/facqchanlisteditor.c:392
+#: src/facqchanlisteditor.c:411
 msgid "Range"
 msgstr "Range"
 
@@ -381,57 +442,81 @@ msgstr "Writes data to a binary acquisition file"
 msgid "Writes data using NIDAQ"
 msgstr "Writes data using NIDAQ"
 
-#: src/facqstreamdialog.c:118
+#: src/facqstreamdialog.c:123 src/facqstreamdialog.c:131
 msgid "Stream name"
 msgstr "Stream name"
 
-#: src/facqstreamdialog.c:128
+#: src/facqstreamdialog.c:148
 msgid "Name:"
 msgstr "Name:"
 
-#: src/facqstreamdialog.c:136
+#: src/facqstreamdialog.c:161
 msgid "Untitled stream"
 msgstr "Untitled stream"
 
-#: src/facqstreamview.c:166
+#: src/facqstreamview.c:170
 msgid "Type"
 msgstr "Type"
 
-#: src/facqstreamview.c:170
+#: src/facqstreamview.c:174
 msgid "Name"
 msgstr "Name"
 
-#: src/facqstreamview.c:174
+#: src/facqstreamview.c:178
 msgid "Details"
 msgstr "Details"
 
-#: src/facqstreamview.c:184
+#: src/facqstreamview.c:195
 msgid "Stream details:"
 msgstr "Stream details:"
 
-#: src/facqstreamview.c:187 src/facqstreamview.c:300
+#: src/facqstreamview.c:198 src/facqstreamview.c:331
 msgid "Create a new stream, or open an existing stream from a file."
 msgstr "Create a new stream, or open an existing stream from a file."
 
-#: src/facqstreamview.c:306 src/facqstreamview.c:312
+#: src/facqstreamview.c:342 src/facqstreamview.c:353
 msgid "You must add a source, optionally some operations, and a sink."
 msgstr "You must add a source, optionally some operations, and a sink."
 
-#: src/facqstreamview.c:318
+#: src/facqstreamview.c:364
 msgid "Stream is ready to be started, press play to start the acquisition."
 msgstr "Stream is ready to be started, press play to start the acquisition."
 
-#: src/facqstreamview.c:324
+#: src/facqstreamview.c:375
 msgid "Data acquisition is in progress, press stop when desired"
 msgstr "Data acquisition is in progress, press stop when desired"
 
-#: src/facqstreamview.c:330
+#: src/facqstreamview.c:386
 msgid "Stream stopped, press play to start again"
 msgstr "Stream stopped, press play to start again"
 
-#: src/facqstreamview.c:336
+#: src/facqstreamview.c:397
 msgid "Some error happened while running the stream"
 msgstr "Some error happened while running the stream"
+
+#: src/facqdyndialog.c:314 src/facqdyndialog.c:324
+msgid "Random"
+msgstr ""
+
+#: src/facqdyndialog.c:315 src/facqdyndialog.c:325
+msgid "Sine"
+msgstr ""
+
+#: src/facqdyndialog.c:316 src/facqdyndialog.c:326
+msgid "Cosine"
+msgstr ""
+
+#: src/facqdyndialog.c:317 src/facqdyndialog.c:327
+msgid "Flat"
+msgstr ""
+
+#: src/facqdyndialog.c:318 src/facqdyndialog.c:328
+msgid "Sawtooth"
+msgstr ""
+
+#: src/facqdyndialog.c:319 src/facqdyndialog.c:329
+msgid "Square"
+msgstr ""
 
 #~ msgid "Can't allocate the memory area"
 #~ msgstr "Can't allocate the memory area"

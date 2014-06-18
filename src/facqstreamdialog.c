@@ -68,7 +68,6 @@ struct _FacqStreamDialogPrivate {
 
 static void name_icons_callback(GtkEntry *entry,GtkEntryIconPosition icon_pos,GdkEvent *event,gpointer data)
 {
-	FacqStreamDialog *dialog = FACQ_STREAM_DIALOG(data);
 	GtkEntryBuffer *buf = NULL;
 
 	switch(icon_pos){
@@ -162,22 +161,23 @@ static void facq_stream_dialog_constructed(GObject *self)
 		gtk_entry_set_text(GTK_ENTRY(widget),_("Untitled stream"));
 
 #if GTK_MAJOR_VERSION > 2
-	gtk_entry_set_icon_from_icon_name(GTK_ENTRY(widget),GTK_ENTRY_ICON_PRIMARY,"edit-clear");
-	gtk_entry_set_icon_from_icon_name(GTK_ENTRY(widget),GTK_ENTRY_ICON_SECONDARY,"edit-delete");
+	gtk_entry_set_icon_from_icon_name(GTK_ENTRY(widget),
+				GTK_ENTRY_ICON_PRIMARY,"edit-clear");
 #else
-	gtk_entry_set_icon_from_stock(GTK_ENTRY(widget),GTK_ENTRY_ICON_PRIMARY,GTK_STOCK_CLEAR);
-	gtk_entry_set_icon_from_stock(GTK_ENTRY(widget),GTK_ENTRY_ICON_SECONDARY,GTK_STOCK_EDIT);
+	gtk_entry_set_icon_from_stock(GTK_ENTRY(widget),
+				GTK_ENTRY_ICON_PRIMARY,GTK_STOCK_CLEAR);
 #endif
-
-	gtk_entry_set_icon_activatable(GTK_ENTRY(widget),GTK_ENTRY_ICON_PRIMARY,TRUE);
-	gtk_entry_set_icon_activatable(GTK_ENTRY(widget),GTK_ENTRY_ICON_SECONDARY,FALSE);
-	gtk_entry_set_icon_sensitive(GTK_ENTRY(widget),GTK_ENTRY_ICON_PRIMARY,TRUE);
+	gtk_entry_set_icon_activatable(GTK_ENTRY(widget),
+				GTK_ENTRY_ICON_PRIMARY,TRUE);
+	gtk_entry_set_icon_sensitive(GTK_ENTRY(widget),
+				GTK_ENTRY_ICON_PRIMARY,TRUE);
 	g_signal_connect(widget,"icon-press",
 				G_CALLBACK(name_icons_callback),dialog);
 	dialog->priv->name_entry = widget;
 
 #if GTK_MAJOR_VERSION > 2
 	gtk_grid_attach(GTK_GRID(grid),widget,1,0,1,1);
+	gtk_widget_show_all(grid);
 	gtk_container_add(GTK_CONTAINER(content_area),grid);
 #else
 	gtk_table_attach_defaults(GTK_TABLE(table),widget,1,2,0,1);

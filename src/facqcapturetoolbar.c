@@ -103,7 +103,6 @@ static void facq_capture_toolbar_constructed(GObject *self)
 
 	GtkWidget *toolbar = NULL;
 	GtkToolItem *toolitem = NULL;
-	GtkSeparatorToolItem *separator = NULL;
 
 	toolbar = gtk_toolbar_new();
 
@@ -210,6 +209,8 @@ static void facq_capture_toolbar_init(FacqCaptureToolbar *toolbar)
 }
 /*****--- Private methods ---*****/
 #if GTK_MAJOR_VERSION > 2
+
+#else
 static void facq_capture_toolbar_change_toolitem(FacqCaptureToolbar *toolbar,const gchar *stock_id,gboolean sensitive)
 {
 	GList *list = NULL;
@@ -231,8 +232,6 @@ static void facq_capture_toolbar_change_toolitem(FacqCaptureToolbar *toolbar,con
 		list = list->next;
 	}
 }
-#else
-
 #endif
 
 /*****--- Public methods ---*****/
