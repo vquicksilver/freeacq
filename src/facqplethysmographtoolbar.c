@@ -18,6 +18,7 @@
  * 
  */
 #include <gtk/gtk.h>
+#include "facqi18n.h"
 #include "facqplethysmographtoolbar.h"
 #include "facqplethysmographtoolbarcallbacks.h"
 
@@ -114,13 +115,21 @@ static void facq_plethysmograph_toolbar_constructed(GObject *self)
 
 	toolbar = gtk_toolbar_new();
 
+#if GTK_MAJOR_VERSION > 2
+	toolitem = gtk_tool_button_new(NULL,_("_Add"));
+#else
 	toolitem = gtk_tool_button_new_from_stock(GTK_STOCK_PREFERENCES);
+#endif
 	gtk_toolbar_insert(GTK_TOOLBAR(toolbar),toolitem,0);
 	gtk_widget_set_sensitive(GTK_WIDGET(toolitem),TRUE);
 	g_signal_connect(toolitem,"clicked",
 			G_CALLBACK(facq_plethysmograph_toolbar_callback_plug_preferences),bar->priv->data);
 
+#if GTK_MAJOR_VERSION > 2
+	toolitem = gtk_tool_button_new(NULL,_("Disconnect"));
+#else
 	toolitem = gtk_tool_button_new_from_stock(GTK_STOCK_DISCONNECT);
+#endif
 	g_signal_connect(toolitem,"clicked",
 			G_CALLBACK(facq_plethysmograph_toolbar_callback_disconnect),bar->priv->data);
 	gtk_toolbar_insert(GTK_TOOLBAR(toolbar),toolitem,1);
@@ -178,6 +187,9 @@ static void facq_plethysmograph_toolbar_init(FacqPlethysmographToolbar *toolbar)
 	toolbar->priv->data = NULL;
 }
 /*****--- Private methods ---*****/
+#if GTK_MAJOR_VERSION > 2
+
+#else
 static void facq_plethysmograph_toolbar_change_toolitem(FacqPlethysmographToolbar *toolbar,const gchar *stock_id,gboolean sensitive)
 {
 	GList *list = NULL;
@@ -199,6 +211,7 @@ static void facq_plethysmograph_toolbar_change_toolitem(FacqPlethysmographToolba
 		list = list->next;
 	}
 }
+#endif
 
 /*****--- Public methods ---*****/
 /**
@@ -239,7 +252,11 @@ GtkWidget *facq_plethysmograph_toolbar_get_widget(FacqPlethysmographToolbar *too
 void facq_plethysmograph_toolbar_disable_disconnect(FacqPlethysmographToolbar *toolbar)
 {
 	g_return_if_fail(FACQ_IS_PLETHYSMOGRAPH_TOOLBAR(toolbar));
+#if GTK_MAJOR_VERSION > 2
+
+#else
 	facq_plethysmograph_toolbar_change_toolitem(toolbar,GTK_STOCK_DISCONNECT,FALSE);
+#endif
 }
 
 /**
@@ -252,7 +269,11 @@ void facq_plethysmograph_toolbar_disable_disconnect(FacqPlethysmographToolbar *t
 void facq_plethysmograph_toolbar_disable_plug_preferences(FacqPlethysmographToolbar *toolbar)
 {
 	g_return_if_fail(FACQ_IS_PLETHYSMOGRAPH_TOOLBAR(toolbar));
+#if GTK_MAJOR_VERSION > 2
+
+#else
 	facq_plethysmograph_toolbar_change_toolitem(toolbar,GTK_STOCK_PREFERENCES,FALSE);
+#endif
 }
 
 /**
@@ -265,7 +286,11 @@ void facq_plethysmograph_toolbar_disable_plug_preferences(FacqPlethysmographTool
 void facq_plethysmograph_toolbar_enable_disconnect(FacqPlethysmographToolbar *toolbar)
 {
 	g_return_if_fail(FACQ_IS_PLETHYSMOGRAPH_TOOLBAR(toolbar));
+#if GTK_MAJOR_VERSION > 2
+
+#else
 	facq_plethysmograph_toolbar_change_toolitem(toolbar,GTK_STOCK_DISCONNECT,TRUE);
+#endif
 }
 
 /**
@@ -278,7 +303,11 @@ void facq_plethysmograph_toolbar_enable_disconnect(FacqPlethysmographToolbar *to
 void facq_plethysmograph_toolbar_enable_plug_preferences(FacqPlethysmographToolbar *toolbar)
 {
 	g_return_if_fail(FACQ_IS_PLETHYSMOGRAPH_TOOLBAR(toolbar));
+#if GTK_MAJOR_VERSION > 2
+
+#else
 	facq_plethysmograph_toolbar_change_toolitem(toolbar,GTK_STOCK_PREFERENCES,TRUE);
+#endif
 }
 
 /**

@@ -128,7 +128,11 @@ static void facq_plethysmograph_menu_constructed(GObject *self)
 	//Plethysmograph submenu
 	menu = gtk_menu_new();
 
+#if GTK_MAJOR_VERSION > 2
+	menuitem = gtk_menu_item_new_with_label(_("_Quit"));
+#else
 	menuitem = gtk_image_menu_item_new_from_stock(GTK_STOCK_QUIT,NULL);
+#endif
 	g_signal_connect(menuitem,"activate",
 				G_CALLBACK(gtk_main_quit),NULL);
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu),menuitem);
@@ -142,14 +146,23 @@ static void facq_plethysmograph_menu_constructed(GObject *self)
 	//Plug submenu
 	menu = gtk_menu_new();
 
+#if GTK_MAJOR_VERSION > 2
+	menuitem = gtk_menu_item_new_with_label(_("_Preferences"));
+#else
 	menuitem = gtk_image_menu_item_new_from_stock(GTK_STOCK_PREFERENCES,NULL);
+#endif
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu),menuitem);
 	g_signal_connect(menuitem,"activate",
 				G_CALLBACK(facq_plethysmograph_menu_callback_plug_preferences),oscmenu->priv->data);
 	gtk_widget_show(menuitem);
 	oscmenu->priv->plug_preferences = menuitem;
 
+#if GTK_MAJOR_VERSION > 2
+	menuitem = gtk_menu_item_new_with_label(_("Disconnect"));
+#else
 	menuitem = gtk_image_menu_item_new_from_stock(GTK_STOCK_DISCONNECT,NULL);
+#endif
+
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu),menuitem);
 	gtk_widget_show(menuitem);
 	gtk_widget_set_sensitive(GTK_WIDGET(menuitem),FALSE);
@@ -165,14 +178,23 @@ static void facq_plethysmograph_menu_constructed(GObject *self)
 	//Help submenu right justified
 	menu = gtk_menu_new();
 
+#if GTK_MAJOR_VERSION > 2
+	menuitem = gtk_menu_item_new_with_label(_("_About"));
+#else
         menuitem = gtk_image_menu_item_new_from_stock(GTK_STOCK_ABOUT,NULL);
+#endif
+
         g_signal_connect(menuitem,"activate",
                 G_CALLBACK(facq_plethysmograph_menu_callback_about),oscmenu->priv->data);
         gtk_menu_shell_append(GTK_MENU_SHELL(menu),menuitem);
         gtk_widget_show(menuitem);
 
         menuitem = gtk_menu_item_new_with_label(_("Help"));
+#if GTK_MAJOR_VERSION > 2
+
+#else
         gtk_menu_item_set_right_justified(GTK_MENU_ITEM(menuitem),TRUE);
+#endif
         gtk_widget_show(menuitem);
         gtk_menu_item_set_submenu(GTK_MENU_ITEM(menuitem),menu);
         gtk_menu_shell_append(GTK_MENU_SHELL(menubar),menuitem);

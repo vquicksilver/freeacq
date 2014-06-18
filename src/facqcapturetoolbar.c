@@ -18,6 +18,7 @@
  * 
  */
 #include <gtk/gtk.h>
+#include "facqi18n.h"
 #include "facqcapturetoolbarcallbacks.h"
 #include "facqcapturetoolbar.h"
 
@@ -106,31 +107,51 @@ static void facq_capture_toolbar_constructed(GObject *self)
 
 	toolbar = gtk_toolbar_new();
 
+#if GTK_MAJOR_VERSION > 2
+	toolitem = gtk_tool_button_new(NULL,_("Add"));
+#else
 	toolitem = gtk_tool_button_new_from_stock(GTK_STOCK_ADD);
+#endif
 	gtk_toolbar_insert(GTK_TOOLBAR(toolbar),toolitem,0);
 	gtk_widget_set_sensitive(GTK_WIDGET(toolitem),FALSE);
 	g_signal_connect(toolitem,"clicked",
 			G_CALLBACK(facq_capture_toolbar_callback_add),bar->priv->data);
 
+#if GTK_MAJOR_VERSION > 2
+	toolitem = gtk_tool_button_new(NULL,_("Remove"));
+#else
 	toolitem = gtk_tool_button_new_from_stock(GTK_STOCK_REMOVE);
+#endif
 	gtk_toolbar_insert(GTK_TOOLBAR(toolbar),toolitem,1);
 	gtk_widget_set_sensitive(GTK_WIDGET(toolitem),FALSE);
 	g_signal_connect(toolitem,"clicked",
 			G_CALLBACK(facq_capture_toolbar_callback_remove),bar->priv->data);
 
+#if GTK_MAJOR_VERSION > 2
+	toolitem = gtk_tool_button_new(NULL,_("Clear"));
+#else
 	toolitem = gtk_tool_button_new_from_stock(GTK_STOCK_CLEAR);
+#endif
 	g_signal_connect(toolitem,"clicked",
 			G_CALLBACK(facq_capture_toolbar_callback_clear),bar->priv->data);
 	gtk_toolbar_insert(GTK_TOOLBAR(toolbar),toolitem,2);
 	gtk_widget_set_sensitive(GTK_WIDGET(toolitem),FALSE);
 
+#if GTK_MAJOR_VERSION > 2
+	toolitem = gtk_tool_button_new(NULL,_("Play"));
+#else
 	toolitem = gtk_tool_button_new_from_stock(GTK_STOCK_MEDIA_PLAY);
+#endif
 	g_signal_connect(toolitem,"clicked",
 			G_CALLBACK(facq_capture_toolbar_callback_play),bar->priv->data);
 	gtk_toolbar_insert(GTK_TOOLBAR(toolbar),toolitem,3);
 	gtk_widget_set_sensitive(GTK_WIDGET(toolitem),FALSE);
 
+#if GTK_MAJOR_VERSION > 2
+	toolitem = gtk_tool_button_new(NULL,_("Stop"));
+#else
 	toolitem = gtk_tool_button_new_from_stock(GTK_STOCK_MEDIA_STOP);
+#endif
 	g_signal_connect(toolitem,"clicked",
 			G_CALLBACK(facq_capture_toolbar_callback_stop),bar->priv->data);
 	gtk_toolbar_insert(GTK_TOOLBAR(toolbar),toolitem,4);
@@ -188,6 +209,7 @@ static void facq_capture_toolbar_init(FacqCaptureToolbar *toolbar)
 	toolbar->priv->data = NULL;
 }
 /*****--- Private methods ---*****/
+#if GTK_MAJOR_VERSION > 2
 static void facq_capture_toolbar_change_toolitem(FacqCaptureToolbar *toolbar,const gchar *stock_id,gboolean sensitive)
 {
 	GList *list = NULL;
@@ -209,6 +231,9 @@ static void facq_capture_toolbar_change_toolitem(FacqCaptureToolbar *toolbar,con
 		list = list->next;
 	}
 }
+#else
+
+#endif
 
 /*****--- Public methods ---*****/
 /**
@@ -252,7 +277,11 @@ GtkWidget *facq_capture_toolbar_get_widget(FacqCaptureToolbar *toolbar)
  */
 void facq_capture_toolbar_enable_add(FacqCaptureToolbar *toolbar)
 {
+#if GTK_MAJOR_VERSION > 2
+
+#else
 	facq_capture_toolbar_change_toolitem(toolbar,GTK_STOCK_ADD,TRUE);
+#endif
 }
 
 /**
@@ -264,7 +293,11 @@ void facq_capture_toolbar_enable_add(FacqCaptureToolbar *toolbar)
  */
 void facq_capture_toolbar_enable_remove(FacqCaptureToolbar *toolbar)
 {
+#if GTK_MAJOR_VERSION > 2
+
+#else
 	facq_capture_toolbar_change_toolitem(toolbar,GTK_STOCK_REMOVE,TRUE);
+#endif
 }
 
 /**
@@ -276,7 +309,11 @@ void facq_capture_toolbar_enable_remove(FacqCaptureToolbar *toolbar)
  */
 void facq_capture_toolbar_enable_clear(FacqCaptureToolbar *toolbar)
 {
+#if GTK_MAJOR_VERSION > 2
+
+#else
 	facq_capture_toolbar_change_toolitem(toolbar,GTK_STOCK_CLEAR,TRUE);
+#endif
 }
 
 /**
@@ -288,7 +325,11 @@ void facq_capture_toolbar_enable_clear(FacqCaptureToolbar *toolbar)
  */
 void facq_capture_toolbar_enable_play(FacqCaptureToolbar *toolbar)
 {
+#if GTK_MAJOR_VERSION > 2
+
+#else
 	facq_capture_toolbar_change_toolitem(toolbar,GTK_STOCK_MEDIA_PLAY,TRUE);
+#endif
 }
 
 /**
@@ -300,7 +341,11 @@ void facq_capture_toolbar_enable_play(FacqCaptureToolbar *toolbar)
  */
 void facq_capture_toolbar_enable_stop(FacqCaptureToolbar *toolbar)
 {
+#if GTK_MAJOR_VERSION > 2
+
+#else
 	facq_capture_toolbar_change_toolitem(toolbar,GTK_STOCK_MEDIA_STOP,TRUE);
+#endif
 }
 
 /**
@@ -312,7 +357,11 @@ void facq_capture_toolbar_enable_stop(FacqCaptureToolbar *toolbar)
  */
 void facq_capture_toolbar_disable_add(FacqCaptureToolbar *toolbar)
 {
+#if GTK_MAJOR_VERSION > 2
+
+#else
 	facq_capture_toolbar_change_toolitem(toolbar,GTK_STOCK_ADD,FALSE);
+#endif
 }
 
 /**
@@ -324,7 +373,11 @@ void facq_capture_toolbar_disable_add(FacqCaptureToolbar *toolbar)
  */
 void facq_capture_toolbar_disable_remove(FacqCaptureToolbar *toolbar)
 {
+#if GTK_MAJOR_VERSION > 2
+
+#else
 	facq_capture_toolbar_change_toolitem(toolbar,GTK_STOCK_REMOVE,FALSE);
+#endif
 }
 
 /**
@@ -336,7 +389,11 @@ void facq_capture_toolbar_disable_remove(FacqCaptureToolbar *toolbar)
  */
 void facq_capture_toolbar_disable_clear(FacqCaptureToolbar *toolbar)
 {
+#if GTK_MAJOR_VERSION > 2
+
+#else
 	facq_capture_toolbar_change_toolitem(toolbar,GTK_STOCK_CLEAR,FALSE);
+#endif
 }
 
 /**
@@ -348,7 +405,11 @@ void facq_capture_toolbar_disable_clear(FacqCaptureToolbar *toolbar)
  */
 void facq_capture_toolbar_disable_play(FacqCaptureToolbar *toolbar)
 {
+#if GTK_MAJOR_VERSION > 2
+
+#else
 	facq_capture_toolbar_change_toolitem(toolbar,GTK_STOCK_MEDIA_PLAY,FALSE);
+#endif
 }
 
 /**
@@ -360,7 +421,11 @@ void facq_capture_toolbar_disable_play(FacqCaptureToolbar *toolbar)
  */
 void facq_capture_toolbar_disable_stop(FacqCaptureToolbar *toolbar)
 {
+#if GTK_MAJOR_VERSION > 2
+
+#else
 	facq_capture_toolbar_change_toolitem(toolbar,GTK_STOCK_MEDIA_STOP,FALSE);
+#endif
 }
 
 /**

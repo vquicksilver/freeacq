@@ -123,12 +123,25 @@ static GtkComboBox *facq_chanlist_editor_new_extra_combobox(void)
 {
 	GtkComboBox *combobox = NULL;
 
+#if GTK_MAJOR_VERSION > 2
+	combobox = GTK_COMBO_BOX(gtk_combo_box_text_new());
+	
+	gtk_combo_box_text_append_text(
+			GTK_COMBO_BOX_TEXT(combobox),_("Ground/RSE"));
+	gtk_combo_box_text_append_text(
+			GTK_COMBO_BOX_TEXT(combobox),_("Common/NRSE"));
+	gtk_combo_box_text_append_text(
+			GTK_COMBO_BOX_TEXT(combobox),_("Differential"));
+	gtk_combo_box_text_append_text(
+			GTK_COMBO_BOX_TEXT(combobox),_("Other/Default"));
+#else
 	combobox = GTK_COMBO_BOX(gtk_combo_box_new_text());
 
 	gtk_combo_box_append_text(combobox,_("Ground/RSE"));
 	gtk_combo_box_append_text(combobox,_("Common/NRSE"));
 	gtk_combo_box_append_text(combobox,_("Differential"));
 	gtk_combo_box_append_text(combobox,_("Other/Default"));
+#endif
 
 	return combobox;
 }
@@ -264,7 +277,13 @@ void extra_combobox_changed(GtkComboBox *combobox,gpointer data)
 	FacqChanlistEditor *ed = FACQ_CHANLIST_EDITOR(data);
 	gchar *analog_aref = NULL;
 
+#if GTK_MAJOR_VERSION > 2
+	analog_aref = 
+		gtk_combo_box_text_get_active_text(
+				GTK_COMBO_BOX_TEXT(combobox));
+#else
 	analog_aref = gtk_combo_box_get_active_text(combobox);
+#endif
 	ed->priv->extra_aref_value = aref_from_string(analog_aref);
 	g_free(analog_aref);
 }

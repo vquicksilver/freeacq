@@ -18,6 +18,7 @@
  * 
  */
 #include <gtk/gtk.h>
+#include "facqi18n.h"
 #include "facqlog.h"
 #include "facqfilechooser.h"
 
@@ -127,12 +128,21 @@ void facq_file_chooser_constructed(GObject *self)
 
 	if(chooser->priv->type == FACQ_FILE_CHOOSER_DIALOG_TYPE_SAVE){
 		chooser->priv->dialog =
+#if GTK_MAJOR_VERSION > 2
+			gtk_file_chooser_dialog_new("Select or create a file",
+						    GTK_WINDOW(chooser->priv->topwindow),
+						    GTK_FILE_CHOOSER_ACTION_SAVE,
+						    _("_Cancel"),GTK_RESPONSE_CANCEL,
+						    _("_OK"),GTK_RESPONSE_ACCEPT,
+						    NULL);
+#else
 			gtk_file_chooser_dialog_new("Select or create a file",
 						    GTK_WINDOW(chooser->priv->topwindow),
 						    GTK_FILE_CHOOSER_ACTION_SAVE,
 						    GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,
 						    GTK_STOCK_SAVE,GTK_RESPONSE_ACCEPT,
 						    NULL);
+#endif
 		
 		//set overwrite confirmation
 		gtk_file_chooser_set_do_overwrite_confirmation(
@@ -166,12 +176,22 @@ void facq_file_chooser_constructed(GObject *self)
 		}
 
 		chooser->priv->dialog = 
+#if GTK_MAJOR_VERSION > 2
+			gtk_file_chooser_dialog_new("Select a file",
+						    GTK_WINDOW(chooser->priv->topwindow),
+						    GTK_FILE_CHOOSER_ACTION_OPEN,
+						    _("_Cancel"), GTK_RESPONSE_CANCEL,
+						    _("_Open"), GTK_RESPONSE_ACCEPT,
+						    NULL);
+#else
 			gtk_file_chooser_dialog_new("Select a file",
 						    GTK_WINDOW(chooser->priv->topwindow),
 						    GTK_FILE_CHOOSER_ACTION_OPEN,
 						    GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL,
 						    GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT,
 						    NULL);
+#endif
+
 
 		//Don't let the user create new folders in an open dialog
 		gtk_file_chooser_set_create_folders(

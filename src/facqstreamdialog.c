@@ -162,8 +162,8 @@ static void facq_stream_dialog_constructed(GObject *self)
 		gtk_entry_set_text(GTK_ENTRY(widget),_("Untitled stream"));
 
 #if GTK_MAJOR_VERSION > 2
-	gtk_entry_set_icon_from_name(GTK_ENTRY(widget),GTK_ENTRY_ICON_PRIMARY,"edit-clear");
-	gtk_entry_set_icon_from_name(GTK_ENTRY(widget),GTK_ENTRY_ICON_SECONDARY,"edit-delete");
+	gtk_entry_set_icon_from_icon_name(GTK_ENTRY(widget),GTK_ENTRY_ICON_PRIMARY,"edit-clear");
+	gtk_entry_set_icon_from_icon_name(GTK_ENTRY(widget),GTK_ENTRY_ICON_SECONDARY,"edit-delete");
 #else
 	gtk_entry_set_icon_from_stock(GTK_ENTRY(widget),GTK_ENTRY_ICON_PRIMARY,GTK_STOCK_CLEAR);
 	gtk_entry_set_icon_from_stock(GTK_ENTRY(widget),GTK_ENTRY_ICON_SECONDARY,GTK_STOCK_EDIT);

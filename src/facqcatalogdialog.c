@@ -160,9 +160,12 @@ static void facq_catalog_dialog_combobox_changed(GtkComboBox *combobox,gpointer 
 	 * differs from the current view */
 	prev_type = dialog->priv->type;
 	active_selection = 
-		/*gtk_combo_box_text_get_active_text(
-				GTK_COMBO_BOX_TEXT(dialog->priv->combobox));*/
+#if GTK_MAJOR_VERSION > 2
+		gtk_combo_box_text_get_active_text(
+				GTK_COMBO_BOX_TEXT(dialog->priv->combobox));
+#else
 		gtk_combo_box_get_active_text(combobox);
+#endif
 
 	if(g_strcmp0(active_selection,_("Operations")) == 0){
 		dialog->priv->type = FACQ_CATALOG_TYPE_OPERATION;
@@ -255,11 +258,16 @@ static void facq_catalog_dialog_get_property(GObject *self,guint property_id,GVa
 static void facq_catalog_dialog_constructed(GObject *self)
 {
 	FacqCatalogDialog *dialog = FACQ_CATALOG_DIALOG(self);
-	GtkWidget *vboxca = NULL, *vbox = NULL, *hbox = NULL, *align = NULL;
+	GtkWidget *align = NULL, *ca = NULL;
 	GtkWidget *icon_view = NULL, *frame = NULL, *scroll_window = NULL;
-	GtkWidget *combobox = NULL, *main_vbox = NULL;
+	GtkWidget *combobox = NULL;
 	GtkListStore *store = NULL;
 	GArray *store_data = NULL;
+#if GTK_MAJOR_VERSION > 2
+	GtkWidget *grid = NULL, *hgrid = NULL, *vgrid = NULL;
+#else
+	GtkWidget *main_vbox = NULL, *hbox = NULL, *vbox = NULL;
+#endif
 
 	switch(dialog->priv->type){
 	case FACQ_CATALOG_TYPE_SOURCE:
@@ -267,20 +275,37 @@ static void facq_catalog_dialog_constructed(GObject *self)
 	break;
 	case FACQ_CATALOG_TYPE_OPERATION:
 		store_data = facq_catalog_get_operations(dialog->priv->catalog);
-		//combobox = gtk_combo_box_text_new();
+#if GTK_MAJOR_VERSION > 2
+		combobox = gtk_combo_box_text_new();
+		grid = gtk_grid_new();
+#else
 		combobox = gtk_combo_box_new_text();
 		main_vbox = gtk_vbox_new(FALSE,0);
+#endif
 	break;
 	case FACQ_CATALOG_TYPE_SINK:
 		store_data = facq_catalog_get_sinks(dialog->priv->catalog);
-		//combobox = gtk_combo_box_text_new();
+#if GTK_MAJOR_VERSION > 2
+		combobox = gtk_combo_box_text_new();
+		grid = gtk_grid_new();
+#else
 		combobox = gtk_combo_box_new_text();
 		main_vbox = gtk_vbox_new(FALSE,0);
+#endif
 	break;
 	default:
 		g_assert(1);
 	}
 
+#if GTK_MAJOR_VERSION > 2
+	dialog->priv->dialog =
+		gtk_dialog_new_with_buttons(_("Choose a component"),
+				GTK_WINDOW(dialog->priv->top_window),
+					GTK_DIALOG_MODAL |
+						GTK_DIALOG_DESTROY_WITH_PARENT,
+							_("_Cancel"),GTK_RESPONSE_CANCEL,
+								_("_OK"),GTK_RESPONSE_OK,NULL);
+#else
 	dialog->priv->dialog = 
 		gtk_dialog_new_with_buttons(_("Choose a component"),
 				GTK_WINDOW(dialog->priv->top_window),
@@ -288,9 +313,9 @@ static void facq_catalog_dialog_constructed(GObject *self)
 						GTK_DIALOG_DESTROY_WITH_PARENT,
 							GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,
 								GTK_STOCK_OK,GTK_RESPONSE_OK,NULL);
+#endif
 
-	vboxca = gtk_dialog_get_content_area(GTK_DIALOG(dialog->priv->dialog));
-
+	ca = gtk_dialog_get_content_area(GTK_DIALOG(dialog->priv->dialog));
 	store = facq_catalog_tree_store_get(store_data);
 	icon_view = gtk_icon_view_new_with_model(GTK_TREE_MODEL(store));
 	dialog->priv->store = store;
@@ -308,41 +333,84 @@ static void facq_catalog_dialog_constructed(GObject *self)
                                                         GTK_POLICY_AUTOMATIC);
 	gtk_container_add(GTK_CONTAINER(frame),scroll_window);
 	gtk_container_add(GTK_CONTAINER(scroll_window),icon_view);
+
+#if GTK_MAJOR_VERSION > 2
+	hgrid = gtk_grid_new();
+#else
 	hbox = gtk_hbox_new(FALSE,0);
-	
+#endif
+
 	if(combobox){
-		//gtk_combo_box_text_insert_text(GTK_COMBO_BOX_TEXT(combobox),0,"Operations");
-		//gtk_combo_box_text_insert_text(GTK_COMBO_BOX_TEXT(combobox),1,"Sinks");
+#if GTK_MAJOR_VERSION > 2
+		gtk_combo_box_text_insert_text(
+				GTK_COMBO_BOX_TEXT(combobox),0,_("Operations"));
+		gtk_combo_box_text_insert_text(
+				GTK_COMBO_BOX_TEXT(combobox),1,_("Sinks"));
+#else
 		gtk_combo_box_append_text(GTK_COMBO_BOX(combobox),_("Operations"));
 		gtk_combo_box_append_text(GTK_COMBO_BOX(combobox),_("Sinks"));
+#endif
 		gtk_combo_box_set_active(GTK_COMBO_BOX(combobox),0);
 		g_signal_connect(combobox,"changed",
 					G_CALLBACK(facq_catalog_dialog_combobox_changed),dialog);
 		dialog->priv->combobox = combobox;
+
+#if GTK_MAJOR_VERSION > 2
+		gtk_grid_attach(GTK_GRID(grid),combobox,0,0,1,1);
+		gtk_grid_attach(GTK_GRID(grid),hgrid,1,0,1,1);
+		gtk_container_add(GTK_CONTAINER(ca),grid);
+#else
 		gtk_box_pack_start(GTK_BOX(main_vbox),combobox,FALSE,FALSE,0);
 		gtk_box_pack_start(GTK_BOX(main_vbox),hbox,TRUE,TRUE,0);
-		gtk_box_pack_start(GTK_BOX(vboxca),main_vbox,TRUE,TRUE,0);
+		gtk_box_pack_start(GTK_BOX(ca),main_vbox,TRUE,TRUE,0);
+#endif
 	} else {
-		gtk_box_pack_start(GTK_BOX(vboxca),hbox,TRUE,TRUE,0);
+#if GTK_MAJOR_VERSION > 2
+	//TODO
+		gtk_container_add(GTK_CONTAINER(ca),hgrid);
+#else
+		gtk_box_pack_start(GTK_BOX(ca),hbox,TRUE,TRUE,0);
+#endif
 	}
-	
+
+#if GTK_MAJOR_VERSION > 2
+	//TODO
+	gtk_container_add(GTK_CONTAINER(hgrid),frame);
+#else
 	gtk_box_pack_start(GTK_BOX(hbox),frame,TRUE,TRUE,0);
+#endif
+
 	align = gtk_alignment_new(0.5,0.0,0.0,0.0);
 	frame = gtk_frame_new(_("Selected Item"));
 	gtk_frame_set_shadow_type(GTK_FRAME(frame),GTK_SHADOW_NONE);
+
+#if GTK_MAJOR_VERSION > 2
+	vgrid = gtk_grid_new();
+	gtk_container_add(GTK_CONTAINER(align),frame);
+	gtk_container_add(GTK_CONTAINER(frame),vgrid);
+#else
 	vbox = gtk_vbox_new(FALSE,8);
 	gtk_container_add(GTK_CONTAINER(align),frame);
 	gtk_container_add(GTK_CONTAINER(frame),vbox);
+#endif
 	dialog->priv->label_name = gtk_label_new("");
 	dialog->priv->image = gtk_image_new();
 	dialog->priv->label_desc = gtk_label_new("");
 	gtk_widget_set_size_request(dialog->priv->label_desc,128,-1);
 	gtk_label_set_line_wrap(GTK_LABEL(dialog->priv->label_desc),TRUE);
 	gtk_label_set_line_wrap_mode(GTK_LABEL(dialog->priv->label_desc),PANGO_WRAP_WORD);
+
+#if GTK_MAJOR_VERSION > 2
+	gtk_container_add(GTK_CONTAINER(vgrid),dialog->priv->label_name);
+	gtk_container_add(GTK_CONTAINER(vgrid),dialog->priv->image);
+	gtk_container_add(GTK_CONTAINER(vgrid),dialog->priv->label_desc);
+	gtk_container_add(GTK_CONTAINER(hgrid),align);
+#else
 	gtk_box_pack_start(GTK_BOX(vbox),dialog->priv->label_name,FALSE,FALSE,0);
 	gtk_box_pack_start(GTK_BOX(vbox),dialog->priv->image,FALSE,FALSE,0);
 	gtk_box_pack_end(GTK_BOX(vbox),dialog->priv->label_desc,FALSE,FALSE,0);
 	gtk_box_pack_end(GTK_BOX(hbox),align,FALSE,FALSE,0);
+#endif
 
 	g_signal_connect(icon_view,"selection-changed",
 			G_CALLBACK(selection_changed),dialog);
